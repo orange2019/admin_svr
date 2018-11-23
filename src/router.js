@@ -3,11 +3,17 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import Home from './pages/Home.vue'
+import Home from './pages/main.vue'
+import Login from './pages/login.vue'
 
-let routes = [{
+let routes = [
+  {
     path: '/',
     component: Home
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ]
 

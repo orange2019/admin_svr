@@ -1,5 +1,5 @@
 {
-  "name": "orange2019/admin_svr",
+  "name": "admin_svr",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -24,18 +24,21 @@
   "homepage": "https://github.com/niklauslu/vue-express-ssr#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.3",
     "connect-history-api-fallback": "^1.5.0",
+    "crypto-js": "^3.1.9-1",
+    "express-session": "^1.15.6",
     "jquery": "^3.3.1",
+    "log4js": "^3.0.6",
+    "method-override": "^3.0.0",
     "mockjs": "^1.0.1-beta3",
     "superagent": "^3.8.3",
+    "uuid": "^3.3.2",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0",
-    "webpack-hot-middleware": "^2.22.2",
-    "express-session": "^1.15.6",
-    "log4js": "^2.10.0",
-    "method-override": "^2.3.10"
+    "webpack-hot-middleware": "^2.22.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

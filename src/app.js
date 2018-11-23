@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
+import Reqeust from './api/common/request'
 import App from './app.vue'
 
 import {
@@ -55,6 +56,7 @@ export function createApp() {
   const router = createRouter()
   const store = createStore()
 
+  store.dispatch('check')
   // 同步路由状态(route state)到 store
   sync(store, router)
 

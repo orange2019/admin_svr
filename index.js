@@ -14,6 +14,27 @@ const {
 const SSR = false
 
 let app = express()
+const Log = require('./log')
+
+const bodyParser = require('body-parser') // 处理请求中body的内容
+const methodOverride = require('method-override')
+const session = require('express-session') // session中间件
+
+// session 支持
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false },
+  secret: '123456'// session加密
+}))
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(bodyParser.raw({ type: 'application/xml' }))
+app.use(bodyParser.text({ type: 'text/xml' }))
+
+// allow overriding methods in query (?_method=put)
+app.use(methodOverride('_method'))
 
 let statics = [
   ['/js', path.join(__dirname, './dist/js')],
@@ -25,6 +46,53 @@ statics.forEach(staticOpt => {
   // staticOpt : ['映射路径' , '源路径']]]
   app.use(staticOpt[0], express.static(staticOpt[1]))
   console.log(`set static resource [ ${staticOpt[0]} , ${staticOpt[1]}]`)
+})
+
+const request = require('superagent')
+const uuid = require('uuid')
+const CryptoJS = require("crypto-js")
+
+app.use('/api' , async(req , res) => {
+
+  let url = req.originalUrl
+  let apiLog = Log('api')
+
+  url = url.replace('/api' , 'http://127.0.0.1:4001/admin')
+
+  const reqUuid = uuid.v4()
+  let data = JSON.stringify({
+    body : req.body,
+    query: req.query,
+    session: req.session
+  })
+  apiLog.info(`${reqUuid}|${req.originalUrl}` , 'data' , data)
+
+  let postData = {
+    uuid : reqUuid,
+    data : CryptoJS.AES.encrypt(data , 'kaximu2018').toString()
+  }
+
+  try {
+    let ret = await request.post(url).send(postData).type('json')
+    let retBody = ret.body
+
+    apiLog.info(`${reqUuid}|${req.originalUrl}` , 'retBody' , retBody)
+
+    Object.keys(retBody.content.session).forEach(key => {
+      if(key !== 'cookie'){
+        req.session[key] = retBody.content.session[key]
+      }
+    })
+
+    return res.json(retBody.content.result)
+  }catch(err) {
+    apiLog.info(`${reqUuid}|${req.originalUrl}` , 'err' , err)
+    return res.json({
+      code: -1,
+      message : 'request err'
+    })
+  }
+  
 })
 
 let nodeEnv = process.env.NODE_ENV 
