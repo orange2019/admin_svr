@@ -5,6 +5,7 @@ Vue.use(Router)
 
 import Home from './pages/main.vue'
 import Login from './pages/login.vue'
+import NewsUpdate from './pages/news/update.vue'
 
 let routes = [
   {
@@ -14,6 +15,10 @@ let routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/news/update',
+    component: NewsUpdate
   }
 ]
 

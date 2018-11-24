@@ -15,14 +15,37 @@ html, body {
 }
 
 .page-left {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 240px;
   height: 100%;
-
-  background: #32325d;
   padding: 0 1rem;
+  background: #1e1e2f;
+  z-index: 1;
+
+  .page-brand {
+    line-height: 50px;
+    border-bottom: 0.5px solid #6c757d;
+    color: #ffffff;
+    padding: 0 1rem;
+  }
+
+  .page-left-navs {
+    ul {
+      li {
+        list-style: none;
+        display: block;
+        line-height: 50px;
+        padding: 0 1rem;
+        a {
+          color: #ffffff;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
 }
 
 .page-right {
@@ -32,6 +55,7 @@ html, body {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 0;
   padding-left: 240px;
 
   .page-right-top {
@@ -47,6 +71,8 @@ html, body {
   }
 }
 
+
+
 .page-login {
   width: 100%;
   padding: 10%;
@@ -59,4 +85,11 @@ html, body {
   border: 1px solid #eeeeee;
   border-radius: 0.5rem;
   padding: 1rem;
+}
+
+.ke-button-common {
+  background: none !important;
+}
+.ke-inline-block form {
+  width: auto !important;
 }

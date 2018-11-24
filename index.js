@@ -40,7 +40,9 @@ let statics = [
   ['/js', path.join(__dirname, './dist/js')],
   ['/css', path.join(__dirname, './dist/css')],
   ['/images', path.join(__dirname, './dist/images')],
-  ['/favicon.ico', path.join(__dirname, './favicon.ico')]
+  ['/favicon.ico', path.join(__dirname, './favicon.ico')],
+  ['/vendor', path.join(__dirname, './vendor')],
+  ['/uploads', path.join(__dirname, './uploads')]
 ]
 statics.forEach(staticOpt => {
   // staticOpt : ['映射路径' , '源路径']]]
@@ -51,6 +53,8 @@ statics.forEach(staticOpt => {
 const request = require('superagent')
 const uuid = require('uuid')
 const CryptoJS = require("crypto-js")
+
+app.use('/upload' , require('./upload'))
 
 app.use('/api' , async(req , res) => {
 

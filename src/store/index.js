@@ -7,7 +7,19 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state(){
     return {
-      admin: {}
+      admin: {},
+      newsData : {
+        id: "",
+        title: "",
+        description: "",
+        post_time: "",
+        content: "",
+        cover: "",
+        status: 1,
+        type: 0,
+        category: "",
+        sort: 0
+      }
     }
   },
   mutations: {
@@ -18,9 +30,14 @@ const store = new Vuex.Store({
       let ret = await Reqeust.post('/api/auth/check')
       console.log('reqeust /api/auth/check' , ret)
       if(ret.code === 0){
-        store.state.admin = ret.data
+        state.admin = {
+          id: ret.data.id,
+          email: ret.data.email,
+          type: ret.data.type
+        }
+        console.log('reqeust /api/auth/check state.admin' , state.admin)
       }else {
-        store.state.admin = null
+        state.admin = null
         // location.href = '/login'
       }
     },

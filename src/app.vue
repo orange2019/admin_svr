@@ -1,7 +1,17 @@
 <template>
   <div v-if="adminInfo" class="page">
     <div class="page-left">
+      <div class="page-brand">
+        卡西慕后台管理
+      </div>
 
+      <div class="page-left-navs">
+        <ul class="">
+          <li class="" v-for="nav in navs">
+            <a :href="nav.url" >{{nav.name}}</a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="page-right">
@@ -58,7 +68,12 @@ export default {
           name : '商城管理',
           url: '/mall',
           type: 2
-        }
+        },
+        {
+          name : '新闻资讯',
+          url: '/news/update',
+          type: 0
+        },
       ]
     }
   },
