@@ -8,7 +8,7 @@
       <div class="page-left-navs">
         <ul class="">
           <li class="" v-for="nav in navs">
-            <a :href="nav.url" >{{nav.name}}</a>
+            <router-link :to="nav.url" >{{nav.name}}</router-link>
           </li>
         </ul>
       </div>
@@ -23,7 +23,10 @@
       </div>
 
       <div class="page-right-content">
-        <router-view></router-view>
+        <transition name="fade">
+          <router-view v-if="isRouterAlive"></router-view>
+        </transition>
+        
       </div>
       
 
@@ -39,10 +42,15 @@
 
 import Reqeust from './api/common/request'
 export default {
- 
+  provide(){
+    return {
+      reload: this.reload
+    }
+  },
   data() {
     return {
       // admin : this.$store.state.admin
+      isRouterAlive : true
     }
   },
   computed: {
@@ -65,13 +73,23 @@ export default {
           type: 0
         },
         {
+          name: '资产数据',
+          url: '/assets',
+          type: 0
+        },
+        {
           name : '商城管理',
           url: '/mall',
           type: 2
         },
         {
           name : '新闻资讯',
-          url: '/news/update',
+          url: '/news',
+          type: 0
+        },
+        {
+          name : '系统设置',
+          url: '/config',
           type: 0
         },
       ]
@@ -86,6 +104,13 @@ export default {
       }
       
       // location.href = '/login'
+    },
+    reload(){
+      console.log('page reload ....')
+      this.isRouterAlive = false
+      this.$nextTick(() => {
+        this.isRouterAlive = true
+      })
     }
   }
 }

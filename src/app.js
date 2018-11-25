@@ -25,8 +25,9 @@ export function componentRegister() {
     // 匹配基础组件文件名的正则表达式
     /[A-Z]\w+\.(vue|js)$/
   )
-  // console.log(requireComponent)
+  // console.log('requireComponent  .........' , requireComponent.keys())
   requireComponent.keys().forEach(fileName => {
+
     // 获取组件配置
     const componentConfig = requireComponent(fileName)
 
@@ -38,7 +39,7 @@ export function componentRegister() {
       )
     )
 
-    // console.log(componentName)
+    // console.log('componentName .......' , componentName)
     // 全局注册组件
     Vue.component(
       componentName,

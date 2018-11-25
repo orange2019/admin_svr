@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Reqeust from './../api/common/request'
+import Editor from './../utils/editor'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state(){
     return {
+      EDITOR: Editor,
       admin: {},
       newsData : {
         id: "",
@@ -19,7 +21,11 @@ const store = new Vuex.Store({
         type: 0,
         category: "",
         sort: 0
-      }
+      },
+      listItems : [],
+      listCount: 0,
+      listCurrentNum:10,
+      listLimit: 1
     }
   },
   mutations: {

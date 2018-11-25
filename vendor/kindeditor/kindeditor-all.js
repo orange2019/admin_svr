@@ -4232,7 +4232,7 @@ _extend(KUploadButton, {
 			url = options.url || '',
 			title = button.val() || '',
 			extraParams = options.extraParams || {},
-			cls = button[0].className || '',
+			cls = button[0].className,
 			target = options.target || 'kindeditor_upload_iframe_' + new Date().getTime();
 		options.afterError = options.afterError || function(str) {
 			alert(str);

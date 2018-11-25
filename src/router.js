@@ -6,6 +6,7 @@ Vue.use(Router)
 import Home from './pages/main.vue'
 import Login from './pages/login.vue'
 import NewsUpdate from './pages/news/update.vue'
+import NewsList from './pages/news/list.vue'
 
 let routes = [
   {
@@ -17,14 +18,20 @@ let routes = [
     component: Login
   },
   {
+    path: '/news',
+    component: NewsList
+  },
+  {
     path: '/news/update',
     component: NewsUpdate
-  }
+  },
+
 ]
 
 export function createRouter() {
   return new Router({
     mode: 'history',
     routes: routes
+
   })
 }
