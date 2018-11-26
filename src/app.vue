@@ -8,7 +8,10 @@
       <div class="page-left-navs">
         <ul class="">
           <li class="" v-for="nav in navs">
-            <router-link :to="nav.url" >{{nav.name}}</router-link>
+            <template v-if="nav.type == 0 || nav.type == adminInfo.type || adminInfo.type == 0">
+              <router-link :to="nav.url" >{{nav.name}}</router-link>
+            </template>
+            
           </li>
         </ul>
       </div>
@@ -73,11 +76,6 @@ export default {
           type: 0
         },
         {
-          name: '资产数据',
-          url: '/assets',
-          type: 0
-        },
-        {
           name : '商城管理',
           url: '/mall',
           type: 2
@@ -90,7 +88,7 @@ export default {
         {
           name : '系统设置',
           url: '/config',
-          type: 0
+          type: 1
         },
       ]
     }

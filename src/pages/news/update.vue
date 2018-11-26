@@ -155,18 +155,18 @@ export default {
         }
       });
     } else {
-      // store.state.newsData = {
-      //   id: "",
-      //   title: "",
-      //   description: "",
-      //   post_time: "",
-      //   content: "",
-      //   cover: "",
-      //   status: 1,
-      //   type: 0,
-      //   category: "",
-      //   sort: 0
-      // };
+      store.state.newsData = {
+        id: "",
+        title: "",
+        description: "",
+        post_time: "",
+        content: "",
+        cover: "",
+        status: 1,
+        type: store.state.admin.type,
+        category: "",
+        sort: 0
+      };
     }
   },
   data() {
