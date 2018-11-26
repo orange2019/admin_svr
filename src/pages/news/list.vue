@@ -57,20 +57,7 @@ export default {
     return {};
   },
   asyncData({ store, route }) {
-    let query = route.query;
-    // console.log("/api/news/list.query", query);
-    query.page = parseInt(route.query.page) || 1
-    query.limit = parseInt(route.query.limit) || store.state.listLimit || 10
-    store.state.listCurrentNum = query.page
-    // let searchKeyword = query.keyword || ''
-    // store.state.searchKeyword = searchKeyword
-    console.log("/api/news/list.query", query);
-
-    Request.get("/api/news/list", query).then(ret => {
-      console.log("request news list ret", ret);
-      store.state.listItems = ret.data.list;
-      store.state.listCount = ret.data.count;
-    });
+    store.dispatch('newsListGet' , {route : route})
   },
   computed: {
     items() {
@@ -119,9 +106,10 @@ export default {
       pushQuery.page = num
       // console.log('pageChange.query' , query)
       this.$router.push({path: '/news' , query: pushQuery })
-      setTimeout(() => {
-        this.$router.go(0)
-      }, 0);
+      this.$store.dispatch('newsListGet' , {route : this.$route})
+      // setTimeout(() => {
+      //   this.$router.go(0)
+      // }, 0);
       // 
     }
   },

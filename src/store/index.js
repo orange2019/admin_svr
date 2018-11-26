@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Reqeust from './../api/common/request'
 import Editor from './../utils/editor'
+import NewsStore from './news/index'
+import UserStore from './user/index'
 
 Vue.use(Vuex)
 
@@ -24,8 +26,10 @@ const store = new Vuex.Store({
       },
       listItems : [],
       listCount: 0,
-      listCurrentNum:10,
-      listLimit: 1
+      listCurrentNum:1,
+      listLimit: 10,
+      userInvestInfo: [],
+      userInvestLogs: []
     }
   },
   mutations: {
@@ -51,6 +55,12 @@ const store = new Vuex.Store({
       let ret = await Reqeust.post('/api/auth/logout')
       console.log('request /api/auth/logout ret' , ret)
       state.admin = null
+    },
+    async newsListGet({state} , data){
+      return await NewsStore.getList(state , data.route)
+    },
+    async userListGet({state} , data){
+      return await UserStore.getList(state , data.route , data.body || {})
     }
   }
 })

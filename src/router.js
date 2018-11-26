@@ -7,6 +7,8 @@ import Home from './pages/main.vue'
 import Login from './pages/login.vue'
 import NewsUpdate from './pages/news/update.vue'
 import NewsList from './pages/news/list.vue'
+import UserList from './pages/user/list.vue'
+import UserInvest from './pages/user/invest.vue'
 
 let routes = [
   {
@@ -25,6 +27,14 @@ let routes = [
     path: '/news/update',
     component: NewsUpdate
   },
+  {
+    path : '/user',
+    component : UserList
+  },
+  {
+    path : '/user/invest',
+    component : UserInvest
+  }
 
 ]
 
