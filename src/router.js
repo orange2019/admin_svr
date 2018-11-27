@@ -9,6 +9,7 @@ import NewsUpdate from './pages/news/update.vue'
 import NewsList from './pages/news/list.vue'
 import UserList from './pages/user/list.vue'
 import UserInvest from './pages/user/invest.vue'
+import Config from './pages/config/index.vue'
 
 let routes = [
   {
@@ -34,8 +35,11 @@ let routes = [
   {
     path : '/user/invest',
     component : UserInvest
+  },
+  {
+    path : '/config',
+    component : Config
   }
-
 ]
 
 export function createRouter() {

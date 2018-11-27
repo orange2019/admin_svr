@@ -4,6 +4,7 @@ import Reqeust from './../api/common/request'
 import Editor from './../utils/editor'
 import NewsStore from './news/index'
 import UserStore from './user/index'
+import ConfigStore from './config/index'
 
 Vue.use(Vuex)
 
@@ -29,7 +30,13 @@ const store = new Vuex.Store({
       listCurrentNum:1,
       listLimit: 10,
       userInvestInfo: [],
-      userInvestLogs: []
+      userInvestLogs: [],
+      config: {
+        rateLevel: '',
+        investList: []
+      },
+      configRateLevel: '',
+      configInvestList: []
     }
   },
   mutations: {
@@ -61,6 +68,12 @@ const store = new Vuex.Store({
     },
     async userListGet({state} , data){
       return await UserStore.getList(state , data.route , data.body || {})
+    },
+    async configGet({state}, data){
+      return await ConfigStore.getConfig(state , data.name)
+    },
+    async configSubmit({state} , data){
+      return await ConfigStore.submitConfig(state , data)
     }
   }
 })
