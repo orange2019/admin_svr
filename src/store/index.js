@@ -69,6 +69,9 @@ const store = new Vuex.Store({
     async userListGet({state} , data){
       return await UserStore.getList(state , data.route , data.body || {})
     },
+    async userTransactionListGet({state} , data){
+      return await UserStore.getTransactionList(state , data.route , data.body || {})
+    },
     async configGet({state}, data){
       return await ConfigStore.getConfig(state , data.name)
     },

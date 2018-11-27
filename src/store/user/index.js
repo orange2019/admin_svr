@@ -24,6 +24,28 @@ class NewsStore {
 
     return ret
   }
+
+  async getTransactionList(state , route , body = {}){
+    let query = route.query;
+    // console.log("/api/news/list.query", query);
+    query.page = parseInt(route.query.page) || 1
+    query.limit = parseInt(route.query.limit) || state.listLimit || 10
+    state.listCurrentNum = query.page
+    // let searchKeyword = query.keyword || ''
+    // store.state.searchKeyword = searchKeyword
+    console.log("/api/user/getTransactionList.query", query);
+
+    body = Object.assign(query , body)
+    body.offset = (query.page - 1) * query.limit
+    console.log("/api/user/getTransactionList.body", body);
+    let ret = await Request.post("/api/user/transactionList", body)
+
+    console.log("request user getTransactionList ret", ret);
+    state.listItems = ret.data.rows;
+    state.listCount = ret.data.count;
+
+    return ret
+  }
 }
 
 export default new NewsStore

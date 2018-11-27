@@ -76,6 +76,11 @@ export default {
           type: 0
         },
         {
+          name: '资产交易',
+          url: '/user/transaction',
+          type: 1
+        },
+        {
           name : '商城管理',
           url: '/mall',
           type: 2

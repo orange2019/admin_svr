@@ -9,7 +9,9 @@ import NewsUpdate from './pages/news/update.vue'
 import NewsList from './pages/news/list.vue'
 import UserList from './pages/user/list.vue'
 import UserInvest from './pages/user/invest.vue'
+import UserTransaction from './pages/user/transaction.vue'
 import Config from './pages/config/index.vue'
+
 
 let routes = [
   {
@@ -35,6 +37,10 @@ let routes = [
   {
     path : '/user/invest',
     component : UserInvest
+  },
+  {
+    path: '/user/transaction',
+    component: UserTransaction
   },
   {
     path : '/config',
