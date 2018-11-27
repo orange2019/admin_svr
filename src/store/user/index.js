@@ -46,6 +46,12 @@ class NewsStore {
 
     return ret
   }
+
+  async transactionItemApply(state , data){
+    let ret = await Request.post('/api/user/transactionApply' , {uuid : data.uuid})
+    console.log("request user transactionItemApply ret", ret);
+    return ret
+  }
 }
 
 export default new NewsStore

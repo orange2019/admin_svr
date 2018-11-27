@@ -76,8 +76,8 @@ export default {
           type: 0
         },
         {
-          name: '资产交易',
-          url: '/user/transaction',
+          name: '资产管理',
+          url: '/user/assets',
           type: 1
         },
         {

@@ -8,6 +8,9 @@
       <div class="col-1">
         <a href="javascript:" class="btn btn-sm" @click="searchUser">搜索</a>
       </div>
+      <div class="col-8 text-right">
+        <router-link to="/user/transaction" class="btn btn-outline-primary">交易记录</router-link>
+      </div>
 
       <div class="col-12">
         <hr>
@@ -18,37 +21,33 @@
       <table class="table table-hover ">
         <thead>
           <tr>
-            <th>USERID</th>
+            <th>姓名</th>
             <th>电话号码</th>
-            <th>真实姓名</th>
             <th>FOD_TOKEN</th>
-            <th>注册时间</th>
+            <th>资产(总计|可用/冻结)</th>
             <th>状态</th>
             <th>操作</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="item in items">
-            <td>{{item.id}}</td>
+            <td>{{item.user_info ? item.user_info.realname : ''}}</td>
             <td>{{ item.mobile }}</td>
-            <td>{{ item.user_info ? item.user_info.realname : '' }} </td>
             <th>{{ item.fod_token }} </th>
-            
-            <td>{{ formatTime(item.create_time) }} </td>
+            <th>
+              <span>{{ item.user_asset ? (item.user_asset.fod_num + item.user_asset.fod_num_frozen) : 0}}</span> | 
+              <span>{{ item.user_asset ? item.user_asset.fod_num  : 0}}</span> / 
+              <span>{{ item.user_asset ? item.user_asset.fod_num_frozen  : 0}}</span> 
+            </th>
             <td>
               <span v-if="item.status == 0" class="text-danger">禁用</span>
               <span v-if="item.status == 1" class="text-success">正常</span>
             </td>
             <td>
-              <span v-if="item.status == 1">
-                <a href="javascript:" @click="userStatus(item.id , 0)" class="btn btn-outline-warning btn-sm">冻结用户</a>
-              </span>
-              <span v-if="item.status == 0">
-                <a href="javascript:" @click="userStatus(item.id , 1)" class="btn btn-outline-success btn-sm">审核通过</a>
-              </span>
-              <span class="ml-1">
-                <a class="btn btn-primary btn-sm" href="javascript:;" @click="viewUserDetail(item)">查看详情</a>
-              </span>
+            </td>
+            <td>
+              <router-link :to="{path : '/user/invest' , query : {user_id : item.id}}" class="btn btn-link" >投产信息</router-link>
             </td>
           </tr>
         </tbody>
@@ -59,44 +58,6 @@
         <my-pagination :total="count" :display="size" :currentPage="currentPage" @pageChange="pageChange"></my-pagination>
       </div>
 
-      <my-modal :title="modalTitle" :isOpen="modalIsOpen" @closeModalAction="closeModalAction">
-        <div>
-          <ul class="list-group">
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">手机号:</span> 
-            <span class="w-50 d-inline-block">{{ userDetail.mobile || '' }} </span>
-          </li>
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">FOD_TOKEN:</span> 
-            <span class="w-50 d-inline-block">{{ userDetail.fod_token || '' }} </span>
-          </li>
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">真实姓名:</span> 
-            <span class="w-50 d-inline-block">{{ userDetail.user_info ? userDetail.user_info.realname : '' }} </span>
-          </li>
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">出生年月:</span> 
-            <span class="w-50 d-inline-block">{{ userDetail.user_info ? formatTime(userDetail.user_info.birth) : '' }} </span>
-          </li>
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">身份证号:</span> 
-            <span class="w-50 d-inline-block">{{ userDetail.user_info ? userDetail.user_info.idcard_no : '' }} </span>
-          </li>
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">身份证正面:</span> 
-            <span class="w-50 d-inline-block">
-              <img :src="userDetail.user_info.idcard_positive" alt="" v-if=" userDetail.user_info &&  userDetail.user_info.idcard_positive" width="100%">
-            </span>
-          </li>
-          <li class="list-group-item d-block">
-            <span class="w-25 d-inline-block">身份证反面:</span> 
-            <span class="w-50 d-inline-block">
-              <img :src="userDetail.user_info.idcard_reverse" alt="" v-if=" userDetail.user_info &&  userDetail.user_info.idcard_reverse" width="100%">
-            </span>
-          </li>
-        </ul>
-        </div>
-      </my-modal>
     </div>
     <div v-else>
       <p class="text-center"> 无数据 </p>
@@ -112,10 +73,7 @@ import Moment from "moment";
 export default {
   data() {
     return {
-      searchKey: "",
-      modalTitle: "用户信息",
-      modalIsOpen: 0,
-      userDetail: {}
+      searchKey: ""
     };
   },
   asyncData({ store, route }) {
@@ -177,13 +135,6 @@ export default {
         this.$router.push({ path: "/user", query: pushQuery });
         this.$store.dispatch("userListGet", { route: this.$route });
       }
-    },
-    viewUserDetail(item) {
-      this.modalIsOpen = 1;
-      this.userDetail = item;
-    },
-    closeModalAction() {
-      this.modalIsOpen = 0;
     }
   }
 };
