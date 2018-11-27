@@ -64,8 +64,8 @@
         <div class="col-9">
           <select v-model="newsData.category" class="form-control" required>
             <option value="">请选择</option>
-            <option value="COMPANY">公司新闻</option>
-            <option value="INSTRUTY">行业新闻</option>
+            <option value="NOTICE">官方公告</option>
+            <option value="INSTRUTY">行业资讯</option>
           </select>
         </div>
       </div>
