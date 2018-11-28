@@ -17,6 +17,13 @@ const SSR = false
 let app = express()
 const Log = require('./log')
 
+// 单独起一个文件服务
+let app2 = express()
+app2.use('/uploads', express.static(path.join(__dirname , './uploads')))
+app2.listen(4004, () => {
+  console.log('file server started on port:' + 4004)
+})
+
 const bodyParser = require('body-parser') // 处理请求中body的内容
 const methodOverride = require('method-override')
 const session = require('express-session') // session中间件
@@ -49,13 +56,6 @@ statics.forEach(staticOpt => {
   // staticOpt : ['映射路径' , '源路径']]]
   app.use(staticOpt[0], express.static(staticOpt[1]))
   console.log(`set static resource [ ${staticOpt[0]} , ${staticOpt[1]}]`)
-})
-
-// 单独起一个文件服务
-let app2 = express()
-app2.use('/uploads', express.static(path.join(__dirname , './uploads')))
-app2.listen(4004, () => {
-  log.info('file server started on port: 4004')
 })
 
 const request = require('superagent')
@@ -92,7 +92,6 @@ app.use('/api' , async(req , res) => {
     content: content,
     sign: sign
   }
-  apiLog.info(`${reqUuid}|${req.originalUrl}` , 'reqBody' , postData)
 
   try {
     let ret = await request.post(url).send(postData).type('json')
