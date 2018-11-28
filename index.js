@@ -51,6 +51,13 @@ statics.forEach(staticOpt => {
   console.log(`set static resource [ ${staticOpt[0]} , ${staticOpt[1]}]`)
 })
 
+// 单独起一个文件服务
+let app2 = express()
+app2.use('/uploads', express.static(path.join(__dirname , './uploads')))
+app2.listen(4004, () => {
+  log.info('file server started on port: 4004')
+})
+
 const request = require('superagent')
 const uuid = require('uuid')
 const crypt = require('./crypt')
