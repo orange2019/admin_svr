@@ -11,6 +11,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const {
   createBundleRenderer
 } = require('vue-server-renderer')
+const config = require('./config')
 const SSR = false
 
 let app = express()
@@ -52,7 +53,8 @@ statics.forEach(staticOpt => {
 
 const request = require('superagent')
 const uuid = require('uuid')
-const CryptoJS = require("crypto-js")
+const crypt = require('./crypt')
+// const CryptoJS = require("crypto-js")
 
 app.use('/upload' , require('./upload'))
 
@@ -64,17 +66,26 @@ app.use('/api' , async(req , res) => {
   url = url.replace('/api' , 'http://127.0.0.1:4001/admin')
 
   const reqUuid = uuid.v4()
-  let data = JSON.stringify({
+  // let data = JSON.stringify({
+  //   body : req.body,
+  //   query: req.query,
+  //   session: req.session
+  // })
+  // apiLog.info(`${reqUuid}|${req.originalUrl}` , 'data' , data)
+  let content = {
     body : req.body,
     query: req.query,
     session: req.session
-  })
-  apiLog.info(`${reqUuid}|${req.originalUrl}` , 'data' , data)
-
+  }
+  let cryptStr = crypt.hmacMd5(content, reqUuid)
+  let sign = crypt.sign(cryptStr, config.primary_key)
   let postData = {
     uuid : reqUuid,
-    data : CryptoJS.AES.encrypt(data , 'kaximu2018').toString()
+    // data : CryptoJS.AES.encrypt(data , 'kaximu2018').toString()
+    content: content,
+    sign: sign
   }
+  apiLog.info(`${reqUuid}|${req.originalUrl}` , 'reqBody' , postData)
 
   try {
     let ret = await request.post(url).send(postData).type('json')

@@ -25,6 +25,14 @@ class Request {
     
     // console.log(res)
     if(res.status == 200){
+      // console.log(res.body)
+
+      // let ret = res.body
+      // if(ret.code == -100){
+      //   // alert(ret.message)
+      //   // location.href = "/"
+      // }
+
       return res.body
     }else{
       return null

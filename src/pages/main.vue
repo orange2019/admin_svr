@@ -1,7 +1,7 @@
 <template>
 <div>
-  <p>Home</p>
-  <p></p>
+  <h1>欢迎使用！！！</h1>
+  <h3>卡西慕后台管理系统</h3>
 </div>
 </template>
 
