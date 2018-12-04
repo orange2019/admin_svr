@@ -1,9 +1,8 @@
-
 import Request from './../../api/common/request'
 
 class NewsStore {
 
-  async getList(state, route , body = {}){
+  async getList(state, route, body = {}) {
     let query = route.query;
     // console.log("/api/news/list.query", query);
     query.page = parseInt(route.query.page) || 1
@@ -13,7 +12,7 @@ class NewsStore {
     // store.state.searchKeyword = searchKeyword
     console.log("/api/user/list.query", query);
 
-    body = Object.assign(query , body)
+    body = Object.assign(query, body)
     body.offset = (query.page - 1) * query.limit
     console.log("/api/user/list.body", body);
     let ret = await Request.post("/api/user/list", body)
@@ -25,7 +24,7 @@ class NewsStore {
     return ret
   }
 
-  async getTransactionList(state , route , body = {}){
+  async getTransactionList(state, route, body = {}) {
     let query = route.query;
     // console.log("/api/news/list.query", query);
     query.page = parseInt(route.query.page) || 1
@@ -35,7 +34,7 @@ class NewsStore {
     // store.state.searchKeyword = searchKeyword
     console.log("/api/user/getTransactionList.query", query);
 
-    body = Object.assign(query , body)
+    body = Object.assign(query, body)
     body.offset = (query.page - 1) * query.limit
     console.log("/api/user/getTransactionList.body", body);
     let ret = await Request.post("/api/user/transactionList", body)
@@ -47,11 +46,6 @@ class NewsStore {
     return ret
   }
 
-  async transactionItemApply(state , data){
-    let ret = await Request.post('/api/user/transactionApply' , {uuid : data.uuid})
-    console.log("request user transactionItemApply ret", ret);
-    return ret
-  }
 }
 
 export default new NewsStore
