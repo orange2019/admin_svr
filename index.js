@@ -94,6 +94,7 @@ app.use('/api', async (req, res) => {
   }
   let cryptStr = crypt.hmacMd5(JSON.stringify(content), reqUuid)
   let sign = crypt.sign(cryptStr, config.primary_key)
+
   let postData = {
     uuid: reqUuid,
     // data : CryptoJS.AES.encrypt(data , 'kaximu2018').toString()
