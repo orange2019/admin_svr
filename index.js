@@ -19,7 +19,7 @@ const Log = require('./log')
 
 // 单独起一个文件服务
 let app2 = express()
-app2.use('/uploads', express.static(path.join(__dirname , './uploads')))
+app2.use('/uploads', express.static(path.join(__dirname, './uploads')))
 app2.listen(4004, () => {
   console.log('file server started on port:' + 4004)
 })
@@ -32,14 +32,22 @@ const session = require('express-session') // session中间件
 app.use(session({
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false },
-  secret: '123456'// session加密
+  cookie: {
+    secure: false
+  },
+  secret: '123456' // session加密
 }))
 
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 app.use(bodyParser.json())
-app.use(bodyParser.raw({ type: 'application/xml' }))
-app.use(bodyParser.text({ type: 'text/xml' }))
+app.use(bodyParser.raw({
+  type: 'application/xml'
+}))
+app.use(bodyParser.text({
+  type: 'text/xml'
+}))
 
 // allow overriding methods in query (?_method=put)
 app.use(methodOverride('_method'))
@@ -63,14 +71,14 @@ const uuid = require('uuid')
 const crypt = require('./crypt')
 // const CryptoJS = require("crypto-js")
 
-app.use('/upload' , require('./upload'))
+app.use('/upload', require('./upload'))
 
-app.use('/api' , async(req , res) => {
+app.use('/api', async (req, res) => {
 
   let url = req.originalUrl
   let apiLog = Log('api')
 
-  url = url.replace('/api' , 'http://127.0.0.1:4001/admin')
+  url = url.replace('/api', 'http://127.0.0.1:4001/admin')
 
   const reqUuid = uuid.v4()
   // let data = JSON.stringify({
@@ -80,14 +88,14 @@ app.use('/api' , async(req , res) => {
   // })
   // apiLog.info(`${reqUuid}|${req.originalUrl}` , 'data' , data)
   let content = {
-    body : req.body,
+    body: req.body,
     query: req.query,
     session: req.session
   }
-  let cryptStr = crypt.hmacMd5(content, reqUuid)
+  let cryptStr = crypt.hmacMd5(JSON.stringify(content), reqUuid)
   let sign = crypt.sign(cryptStr, config.primary_key)
   let postData = {
-    uuid : reqUuid,
+    uuid: reqUuid,
     // data : CryptoJS.AES.encrypt(data , 'kaximu2018').toString()
     content: content,
     sign: sign
@@ -97,29 +105,29 @@ app.use('/api' , async(req , res) => {
     let ret = await request.post(url).send(postData).type('json')
     let retBody = ret.body
 
-    apiLog.info(`${reqUuid}|${req.originalUrl}` , 'retBody' , retBody)
+    apiLog.info(`${reqUuid}|${req.originalUrl}`, 'retBody', retBody)
 
     Object.keys(retBody.content.session).forEach(key => {
-      if(key !== 'cookie'){
+      if (key !== 'cookie') {
         req.session[key] = retBody.content.session[key]
       }
     })
 
     return res.json(retBody.content.result)
-  }catch(err) {
-    apiLog.info(`${reqUuid}|${req.originalUrl}` , 'err' , err)
+  } catch (err) {
+    apiLog.info(`${reqUuid}|${req.originalUrl}`, 'err', err)
     return res.json({
       code: -1,
-      message : 'request err'
+      message: 'request err'
     })
   }
-  
+
 })
 
-let nodeEnv = process.env.NODE_ENV 
+let nodeEnv = process.env.NODE_ENV
 
-if(nodeEnv !== 'production'){
-  
+if (nodeEnv !== 'production') {
+
   // 测试环境
   const config = require('./build/webpack.server')
   const compiler = webpack(config)
@@ -139,7 +147,7 @@ if(nodeEnv !== 'production'){
     heartbeat: 10 * 1000
   }))
 
-}else {
+} else {
   // 正式环境部署
 
   if (!fs.existsSync(path.join(__dirname, './dist'))) {
@@ -148,13 +156,13 @@ if(nodeEnv !== 'production'){
   }
 
 
-  if(!SSR){
+  if (!SSR) {
     // 不使用服务端渲染
-    app.get('*' , (req, res) => {
+    app.get('*', (req, res) => {
       let htmlStr = fs.readFileSync(path.join(__dirname, './dist/index.html')).toString()
       res.send(htmlStr)
     })
-  }else {
+  } else {
     let renderer = null
     let serverBundlePath = path.join(__dirname, './dist/vue-ssr-server-bundle.json')
     if (fs.existsSync(serverBundlePath)) {
@@ -193,7 +201,7 @@ if(nodeEnv !== 'production'){
     })
   }
 
-  
+
 }
 
 const PROT = process.env.port || 4000
