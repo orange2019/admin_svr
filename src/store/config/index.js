@@ -24,8 +24,10 @@ class ConfigStore {
     console.log('ConfigStore.submitConfig ret', ret)
     if (ret.code == 0) {
       // state.config[configName] = ret.data.info
+      alert('设置成功')
       await this.getConfig(state, data.name)
     } else {
+      alert('设置失败')
       // state.config[configName] = null
     }
   }

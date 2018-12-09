@@ -92,7 +92,7 @@ app.use('/api', async (req, res) => {
     query: req.query,
     session: req.session
   }
-  let cryptStr = crypt.hmacMd5(JSON.stringify(content), reqUuid)
+  let cryptStr = crypt.hmacMd5(content, reqUuid)
   let sign = crypt.sign(cryptStr, config.primary_key)
 
   let postData = {
