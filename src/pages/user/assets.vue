@@ -22,7 +22,7 @@
             <th>姓名</th>
             <th>钱包地址</th>
             <th>资产</th>
-            <th>冻结</th>
+            <th>状态</th>
             <th>操作</th>
             <th></th>
           </tr>
@@ -33,17 +33,17 @@
             <td>{{item.user_info ? item.user_info.realname : ''}}</td>
             <th>{{ item.wallet_address }}</th>
             <th>
-              <span>{{ item.user_asset ? item.user_asset.token_num_frozen : 0}}</span>
+              <a href="javascript:alert('TODO')">查看</a>
             </th>
             <td>
               <span v-if="item.status == 0" class="text-danger">禁用</span>
               <span v-if="item.status == 1" class="text-success">正常</span>
             </td>
             <td>
-              <router-link
+              <!-- <router-link
                 :to="{path : '/user/invest' , query : {user_id : item.id}}"
                 class="btn btn-link"
-              >投产信息</router-link>
+              >投产信息</router-link>-->
             </td>
           </tr>
         </tbody>
