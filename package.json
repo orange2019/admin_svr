@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/niklauslu/vue-express-ssr#readme",
   "dependencies": {
+    "ali-oss": "^6.0.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.3",
     "connect-history-api-fallback": "^1.5.0",
