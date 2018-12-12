@@ -1,14 +1,14 @@
 {
   "publicPath": "/",
   "all": [
-    "css/app.a24a8a16513ccf477302.css",
-    "css/app.a24a8a16513ccf477302.css.map",
+    "css/app.94aa2c80cbf3de7e492d.css",
+    "css/app.94aa2c80cbf3de7e492d.css.map",
     "index.html",
-    "js/app.a24a8a16513ccf477302.js",
-    "js/app.a24a8a16513ccf477302.js.map"
+    "js/app.94aa2c80cbf3de7e492d.js",
+    "js/app.94aa2c80cbf3de7e492d.js.map"
   ],
   "initial": [
-    "js/app.a24a8a16513ccf477302.js"
+    "js/app.94aa2c80cbf3de7e492d.js"
   ],
   "async": [],
   "modules": {
@@ -188,14 +188,6 @@
       1,
       1
     ],
-    "2ff020b8": [
-      3,
-      0,
-      0,
-      4,
-      1,
-      1
-    ],
     "9a512ee8": [
       3,
       0,
@@ -213,6 +205,14 @@
       1
     ],
     "1c78a48e": [
+      3,
+      0,
+      0,
+      4,
+      1,
+      1
+    ],
+    "2ff020b8": [
       3,
       0,
       0,
@@ -1052,7 +1052,7 @@
       1,
       1
     ],
-    "c6f68d1e": [
+    "6f0091ec": [
       3,
       0,
       0,
@@ -1140,7 +1140,7 @@
       1,
       1
     ],
-    "315adb64": [
+    "7526a976": [
       3,
       0,
       0,
@@ -1148,7 +1148,7 @@
       1,
       1
     ],
-    "aa4f10de": [
+    "572b3370": [
       3,
       0,
       0,
