@@ -5,6 +5,7 @@ const path = require('path')
 const fs = require('fs')
 const moment = require('moment') 
 const uuid = require('uuid')
+const aliOssUtils = require('./../api_svr/app/utils/ali_oss_utils');
 
 
 var storage = multer.diskStorage({
@@ -29,18 +30,33 @@ let upload = multer({
 }).any()
 
 router.post('/', async (req, res) => {
+  
+  Log.info(req.files)
+  let uploadResult = await aliOssUtils.upload(req.files[0].filename);
+  Log.info(uploadResult)
+  if(uploadResult.res.status != 200){
+    return res.json({code:1, message: '上传失败'})
+  }
 
-  upload(req, res, (err) => {
-    if(err){
-      console.log(err)
-      return res.json({error:1, message: '上传失败'})
+  return res.json({
+    code: 0 ,
+    message: '上传成功',
+    data : {
+      url : uploadResult.url
     }
-
-    console.log(req.files)
-    let filePath = path.join('/uploads/images/' , moment(new Date()).format('YYYYMMDD') , req.files[0].filename)
-    return res.json({error:0, url: filePath})
-    // 
   })
+
+  // upload(req, res, (err) => {
+  //   if(err){
+  //     console.log(err)
+  //     return res.json({error:1, message: '上传失败'})
+  //   }
+
+  //   console.log(req.files)
+  //   let filePath = path.join('/uploads/images/' , moment(new Date()).format('YYYYMMDD') , req.files[0].filename)
+  //   return res.json({error:0, url: filePath})
+  //   // 
+  // })
 
   // res.send('success')
 
