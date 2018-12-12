@@ -28,7 +28,7 @@
         </thead>
         <tbody>
           <tr v-for="item in items">
-            <td>{{item.uuid}}</td>
+            <td>{{item.hash}}</td>
             <td>{{ item.user ? item.user.mobile : '' }}</td>
             <th>{{ item.user_info ? item.user_info.realname : '' }}</th>
             <th>{{ transactionTypes[item.type] }}</th>
@@ -57,7 +57,15 @@
 <script>
 import Request from "./../../api/common/request";
 import Moment from "moment";
-const transactionTypes = ["", "充值", "提币", "转账"];
+const transactionTypes = [
+  "",
+  "充值",
+  "提币",
+  "转账",
+  "产品购买",
+  "产品收益",
+  "团队收益"
+];
 
 export default {
   data() {

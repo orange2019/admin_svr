@@ -46,6 +46,16 @@ class NewsStore {
     return ret
   }
 
+  async getUserInvestList(state, route, body = {}) {
+    let query = route.query
+
+    let ret = await Request.get('/api/user/investInfoAndLogs', query, body)
+    console.log("request user getUserInvestList ret", ret);
+
+    state.userInvestList = ret.data.list
+    return ret
+  }
+
 }
 
 export default new NewsStore

@@ -30,8 +30,7 @@ const store = new Vuex.Store({
       listCount: 0,
       listCurrentNum: 1,
       listLimit: 10,
-      userInvestInfo: [],
-      userInvestLogs: [],
+      userInvestList: [],
       config: {
         rateLevel: '',
         investList: []
@@ -103,6 +102,11 @@ const store = new Vuex.Store({
       state
     }) {
       return await AssetsStore.getInfo(state)
+    },
+    async getUserInvestList({
+      state
+    }, data) {
+      return await UserStore.getUserInvestList(state, data.route, {})
     }
   }
 })

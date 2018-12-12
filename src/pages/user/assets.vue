@@ -18,6 +18,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th>用户Id</th>
             <th>电话号码</th>
             <th>姓名</th>
             <th>钱包地址</th>
@@ -29,6 +30,7 @@
         </thead>
         <tbody>
           <tr v-for="item in items">
+            <td>{{ item.id }}</td>
             <td>{{ item.mobile }}</td>
             <td>{{item.user_info ? item.user_info.realname : ''}}</td>
             <th>{{ item.wallet_address }}</th>
@@ -40,10 +42,7 @@
               <span v-if="item.status == 1" class="text-success">正常</span>
             </td>
             <td>
-              <!-- <router-link
-                :to="{path : '/user/invest' , query : {user_id : item.id}}"
-                class="btn btn-link"
-              >投产信息</router-link>-->
+              <router-link :to="{path : '/user/invest' , query : {user_id : item.id}}">投产信息</router-link>
             </td>
           </tr>
         </tbody>
