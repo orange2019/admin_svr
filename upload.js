@@ -5,7 +5,7 @@ const path = require('path')
 const fs = require('fs')
 const moment = require('moment')
 const uuid = require('uuid')
-const aliOssUtils = require('./../api_svr/app/utils/ali_oss_utils');
+const aliOssUtils = require('./vendor/utils/ali_oss_utils');
 const Log = require('./log')('upload')
 
 
