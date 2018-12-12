@@ -4,7 +4,7 @@
 'use strict'
 const OSS = require('ali-oss');
 const path = require('path');
-const Log = require('./../../lib/log')('ali_oss_utils')
+const Log = require('./../../log')('ali_oss_utils')
 const dateUtils = require('./date_utils')
 
 class AliOssUtils 
