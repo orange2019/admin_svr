@@ -35,7 +35,7 @@
             <td>{{item.user_info ? item.user_info.realname : ''}}</td>
             <th>{{ item.wallet_address }}</th>
             <th>
-              <a href="javascript:alert('TODO')">查看</a>
+              <a href="javascript:;" @click="checkUserTokenBalance(item.wallet_address)">查看</a>
             </th>
             <td>
               <span v-if="item.status == 0" class="text-danger">禁用</span>
@@ -133,6 +133,12 @@ export default {
         this.$router.push({ path: "/user", query: pushQuery });
         this.$store.dispatch("userListGet", { route: this.$route });
       }
+    },
+    async checkUserTokenBalance(address) {
+      let body = { address: address };
+      let ret = await Request.post("/api/user/getTokenBalance", body);
+      console.log(ret);
+      alert(ret.data.tokenBalance);
     }
   }
 };
