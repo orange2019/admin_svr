@@ -19,8 +19,8 @@ class Editor {
 
   }
 
-  async createImgBtn(element , store) {
-    console.log('editoe.createImgBtn store' , store.state)
+  async createImgBtn(element, store) {
+    console.log('editoe.createImgBtn store', store.state)
     let uploadbutton = KindEditor.uploadbutton({
       // button: document.getElementById(element),
       button: KindEditor('#' + element)[0],
