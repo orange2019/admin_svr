@@ -31,7 +31,8 @@ const session = require("express-session"); // session中间件
 const RedisStrore = require("connect-redis")(session);
 
 const sessionStore = {
-  host: process.env.NODE_ENV == 'production' ? '127.0.0.1' : "ec2-18-188-112-81.us-east-2.compute.amazonaws.com",
+  // host: process.env.NODE_ENV == 'production' ? '127.0.0.1' : "ec2-18-188-112-81.us-east-2.compute.amazonaws.com",
+  host: 'ec2-18-188-112-81.us-east-2.compute.amazonaws.com',
   port: 6379
 };
 // session 支持
