@@ -12,10 +12,10 @@ class AliOssUtils {
         //配置信息
         this.config = {
             region: 'oss-cn-shenzhen',
-            accessKeyId: 'H7tlMQ8JJIiqGLYR',
-            accessKeySecret: 'cfk8GkR2VSrLkDYE7mgiHijkpoPSv8',
-            bucket: 'cc-img',
-            allowedExtname: ['jpg', 'jpeg']
+            accessKeyId: 'LTAIuZAB2acD7SpJ',
+            accessKeySecret: 'FMpk7JlIIGbhSCS5q0A5VZOSk5uthV',
+            bucket: 'kxm-img',
+            allowedExtname: ['jpg', 'jpeg', 'gif', 'bmp']
         }
         this.client = new OSS(this.config);
     }

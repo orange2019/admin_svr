@@ -44,6 +44,7 @@ router.post('/', async (req, res) => {
     console.log(req.files)
     Log.info(req.files);
     aliOssUtils.upload(req.files[0].path).then(uploadResult => {
+      Log.info('uploadResult', uploadResult);
       if (uploadResult.res.status != 200) {
         return res.json({
           error: 1,
