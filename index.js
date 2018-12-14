@@ -32,7 +32,7 @@ const RedisStrore = require("connect-redis")(session);
 
 const sessionStore = {
   // host: process.env.NODE_ENV == 'production' ? '127.0.0.1' : "ec2-18-188-112-81.us-east-2.compute.amazonaws.com",
-  host: 'ec2-18-188-112-81.us-east-2.compute.amazonaws.com',
+  host: 'ec2-54-169-177-12.ap-southeast-1.compute.amazonaws.com',
   port: 6379
 };
 // session 支持
@@ -95,9 +95,8 @@ app.use("/api", async (req, res) => {
   let url = req.originalUrl;
   let apiLog = Log("api");
 
-  // url = url.replace('/api', 'http://127.0.0.1:4001/admin')
-  // let apiUrl = 'http://ec2-18-188-112-81.us-east-2.compute.amazonaws.com:4001';
-  let apiUrl = process.env.NODE_ENV == 'production' ? 'http://ec2-18-188-112-81.us-east-2.compute.amazonaws.com:4001' : '127.0.0.1:4001'
+  // let apiUrl = process.env.NODE_ENV == 'production' ? 'http://ec2-54-169-177-12.ap-southeast-1.compute.amazonaws.com:4001' : '127.0.0.1:4001'
+  let apiUrl = '127.0.0.1:4001'
   url = url.replace(
     "/api",
     apiUrl + "/admin"
