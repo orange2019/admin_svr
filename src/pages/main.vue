@@ -47,9 +47,6 @@
         ></my-pagination>
       </div>
     </div>
-    <div v-else>
-      <p class="text-center">无数据</p>
-    </div>
   </div>
 </template>
 
