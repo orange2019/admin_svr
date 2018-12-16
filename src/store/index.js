@@ -40,6 +40,7 @@ const store = new Vuex.Store({
       configInvestList: [],
       investList: [],
       investDetail: {},
+      inviteInfo: {},
       tokenInfo: {}
     }
   },
@@ -80,6 +81,16 @@ const store = new Vuex.Store({
       state
     }, data) {
       return await UserStore.getList(state, data.route, data.body || {})
+    },
+    async userInviteGet({
+      state
+    }, data) {
+      return await UserStore.getInvite(state, data.route, data.body || {})
+    },
+    async userListInviteGet({
+      state
+    }, data) {
+      return await UserStore.getListInvite(state, data.route, data.body || {})
     },
     async userTransactionListGet({
       state

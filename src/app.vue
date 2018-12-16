@@ -56,7 +56,7 @@ export default {
     navs() {
       return [
         {
-          name: "首页",
+          name: "Dashboard",
           url: "/",
           type: 0
         },

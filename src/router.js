@@ -11,6 +11,7 @@ import UserList from './pages/user/list.vue'
 import UserInvest from './pages/user/invest.vue'
 import UserTransaction from './pages/user/transaction.vue'
 import UserAssets from './pages/user/assets.vue'
+import UserInvite from './pages/user/invite.vue'
 import Config from './pages/config/index.vue'
 import Assets from './pages/assets/index.vue'
 import Invest from './pages/invest/index.vue'
@@ -63,6 +64,10 @@ let routes = [{
   {
     path: '/invest/Update',
     component: InvestUpdate
+  },
+  {
+    path: '/user/invite',
+    component: UserInvite
   }
 ]
 
