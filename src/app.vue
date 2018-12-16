@@ -81,7 +81,7 @@ export default {
           type: 0
         },
         {
-          name: "系统设置",
+          name: "配置管理",
           url: "/config",
           type: 1
         }

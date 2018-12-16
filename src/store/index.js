@@ -6,6 +6,7 @@ import NewsStore from './news/index'
 import UserStore from './user/index'
 import ConfigStore from './config/index'
 import AssetsStore from './assets/index'
+import InvestStore from './invest/index'
 
 Vue.use(Vuex)
 
@@ -37,6 +38,8 @@ const store = new Vuex.Store({
       },
       configRateLevel: '',
       configInvestList: [],
+      investList: [],
+      investDetail: {},
       tokenInfo: {}
     }
   },
@@ -107,6 +110,16 @@ const store = new Vuex.Store({
       state
     }, data) {
       return await UserStore.getUserInvestList(state, data.route, {})
+    },
+    async investListGet({
+      state
+    }, data) {
+      return await InvestStore.getList(state, data.route)
+    },
+    async investDetailGet({
+      state
+    }, data) {
+      return await InvestStore.getDetail(state, data.route)
     }
   }
 })

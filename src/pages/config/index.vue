@@ -1,6 +1,13 @@
 <template>
   <div class="page-config">
-    <h6>系统设置</h6>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link disabled" href="javascript:;">系统设置</a>
+      </li>
+      <li class="nav-item">
+        <router-link to="/invest" class="nav-link">投产管理</router-link>
+      </li>
+    </ul>
     <hr>
     <div class="mt-3">
       <form @submit.prevent="configSubmit('rateLevel')">

@@ -13,6 +13,8 @@ import UserTransaction from './pages/user/transaction.vue'
 import UserAssets from './pages/user/assets.vue'
 import Config from './pages/config/index.vue'
 import Assets from './pages/assets/index.vue'
+import Invest from './pages/invest/index.vue'
+import InvestUpdate from './pages/invest/update.vue'
 
 let routes = [{
     path: '/',
@@ -53,6 +55,14 @@ let routes = [{
   {
     path: '/config',
     component: Config
+  },
+  {
+    path: '/invest',
+    component: Invest
+  },
+  {
+    path: '/invest/Update',
+    component: InvestUpdate
   }
 ]
 
