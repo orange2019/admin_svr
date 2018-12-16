@@ -1,14 +1,14 @@
 {
   "publicPath": "/",
   "all": [
-    "css/app.bf95db7d1f2c0a3c38da.css",
-    "css/app.bf95db7d1f2c0a3c38da.css.map",
+    "css/app.35ceca7db7411ab542f7.css",
+    "css/app.35ceca7db7411ab542f7.css.map",
     "index.html",
-    "js/app.bf95db7d1f2c0a3c38da.js",
-    "js/app.bf95db7d1f2c0a3c38da.js.map"
+    "js/app.35ceca7db7411ab542f7.js",
+    "js/app.35ceca7db7411ab542f7.js.map"
   ],
   "initial": [
-    "js/app.bf95db7d1f2c0a3c38da.js"
+    "js/app.35ceca7db7411ab542f7.js"
   ],
   "async": [],
   "modules": {
@@ -1132,7 +1132,7 @@
       1,
       1
     ],
-    "7fb8894f": [
+    "13c9fc32": [
       3,
       0,
       0,

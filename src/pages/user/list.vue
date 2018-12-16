@@ -20,6 +20,7 @@
         <thead>
           <tr>
             <th>USERID</th>
+            <th></th>
             <th>电话号码</th>
             <th>真实姓名</th>
             <th>钱包地址</th>
@@ -31,6 +32,15 @@
         <tbody>
           <tr v-for="item in items">
             <td>{{item.id}}</td>
+            <td>
+              <img
+                v-if="item.user_info && item.user_info.avatar"
+                :src="item.user_info.avatar"
+                width="24"
+                height="24"
+                class="rounded-circle"
+              >
+            </td>
             <td>{{ item.mobile }}</td>
             <td>{{ item.user_info ? item.user_info.realname : '' }}</td>
             <th>{{ item.wallet_address }}</th>
@@ -85,7 +95,7 @@
               <span class="w-50 d-inline-block">{{ userDetail.mobile || '' }}</span>
             </li>
             <li class="list-group-item d-block">
-              <span class="w-25 d-inline-block">FOD_TOKEN:</span>
+              <span class="w-25 d-inline-block">钱包地址:</span>
               <span class="w-50 d-inline-block">{{ userDetail.wallet_address || '' }}</span>
             </li>
             <li class="list-group-item d-block">
@@ -94,12 +104,12 @@
                 class="w-50 d-inline-block"
               >{{ userDetail.user_info ? userDetail.user_info.realname : '' }}</span>
             </li>
-            <li class="list-group-item d-block">
+            <!-- <li class="list-group-item d-block">
               <span class="w-25 d-inline-block">出生年月:</span>
               <span
                 class="w-50 d-inline-block"
               >{{ userDetail.user_info ? formatTime(userDetail.user_info.birth) : '' }}</span>
-            </li>
+            </li>-->
             <li class="list-group-item d-block">
               <span class="w-25 d-inline-block">身份证号:</span>
               <span
@@ -213,6 +223,8 @@ export default {
     },
     viewUserDetail(item) {
       this.modalIsOpen = 1;
+
+      console.log("user item", item);
       this.userDetail = item;
     },
     closeModalAction() {
