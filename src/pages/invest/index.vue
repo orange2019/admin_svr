@@ -18,6 +18,7 @@
           <tr>
             <th>ID</th>
             <th>产品名称</th>
+            <th>数量</th>
             <th>收益率</th>
             <th>天数</th>
             <th>排序</th>
@@ -29,6 +30,7 @@
           <tr v-for="item in items">
             <td>{{item.id}}</td>
             <td class="text-truncate">{{ item.name }}</td>
+            <td>{{ item.num }}</td>
             <td>{{ item.rate }} %</td>
             <td>{{ item.days }}</td>
             <td>{{ item.sort }}</td>
