@@ -83,7 +83,7 @@ export default {
       return Moment(date).format(format);
     },
     pageChange(num) {
-      // this.$store.state.listCurrentNum = num
+      this.$store.state.listCurrentNum = num;
       let query = this.$route.query;
       let pushQuery = {};
       Object.keys(query).forEach(key => {
@@ -93,7 +93,7 @@ export default {
       });
       pushQuery.page = num;
       // console.log('pageChange.query' , query)
-      this.$router.push({ path: "/user", query: pushQuery });
+      this.$router.push({ path: "/", query: pushQuery });
       this.$store.dispatch("userListInviteGet", { route: this.$route });
     },
     searchUser() {

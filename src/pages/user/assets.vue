@@ -22,10 +22,12 @@
             <th>电话号码</th>
             <th>姓名</th>
             <th>钱包地址</th>
-            <th>资产</th>
+            <th>可用资产</th>
+            <th>冻结资产</th>
             <th>状态</th>
             <th>操作</th>
-            <th></th>
+            <th>冻结资产</th>
+            <th>解冻资产</th>
           </tr>
         </thead>
         <tbody>
@@ -37,12 +39,21 @@
             <th>
               <a href="javascript:;" @click="checkUserTokenBalance(item.wallet_address)">查看</a>
             </th>
+            <th>{{ item.user_asset ? item.user_asset.token_num_backup : 0 }}</th>
             <td>
               <span v-if="item.status == 0" class="text-danger">禁用</span>
               <span v-if="item.status == 1" class="text-success">正常</span>
             </td>
             <td>
               <router-link :to="{path : '/user/invest' , query : {user_id : item.id}}">投产信息</router-link>
+            </td>
+            <td>
+              <input type="number" v-model="frozenNum[item.id]" style="width:100px;">
+              <a href="javascript:;" @click="forzen(item.id , 0)" class="btn btn-sm btn-danger">冻结</a>
+            </td>
+            <td>
+              <input type="number" v-model="unFrozenNum[item.id]" style="width:100px;">
+              <a href="javascript:;" @click="forzen(item.id , 1)" class="btn btn-sm btn-primary">解冻</a>
             </td>
           </tr>
         </tbody>
@@ -61,6 +72,10 @@
     <div v-else>
       <p class="text-center">无数据</p>
     </div>
+
+    <div class="bg" :style="errMsg.style">
+      <div class v-html="errMsg.text" :style="errMsg.textStyle"></div>
+    </div>
   </div>
 </template>
 
@@ -71,7 +86,30 @@ import Moment from "moment";
 export default {
   data() {
     return {
-      searchKey: ""
+      searchKey: "",
+      frozenNum: {},
+      unFrozenNum: {},
+      errMsg: {
+        text: "",
+        style: {
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          top: 0,
+          left: 0,
+          "z-index": 100000,
+          display: "none",
+          background: "none"
+        },
+        textStyle: {
+          width: "300px",
+          margin: "100px auto",
+          background: "#000",
+          padding: "1rem",
+          color: "#fff",
+          "text-align": "center"
+        }
+      }
     };
   },
   asyncData({ store, route }) {
@@ -107,7 +145,7 @@ export default {
       });
       pushQuery.page = num;
       // console.log('pageChange.query' , query)
-      this.$router.push({ path: "/user", query: pushQuery });
+      this.$router.push({ path: "/user/assets", query: pushQuery });
       this.$store.dispatch("userListGet", { route: this.$route });
     },
     searchUser() {
@@ -139,6 +177,52 @@ export default {
       let ret = await Request.post("/api/user/getTokenBalance", body);
       console.log(ret);
       alert(ret.data.tokenBalance);
+    },
+    async forzen(userId, type = 0) {
+      let num = 0;
+      let url = "";
+      if (type == 0) {
+        num = this.frozenNum[userId] || 0;
+        url = "/api/assets/frozen";
+      } else {
+        num = this.unFrozenNum[userId] || 0;
+        url = "/api/assets/unFrozen";
+      }
+
+      if (num == 0) {
+        return false;
+      }
+
+      this.errMsg.style.display = "block";
+      this.errMsg.text = "操作进行中...";
+
+      let postData = {
+        user_id: userId,
+        num: num
+      };
+
+      console.log("forzen postData", postData);
+
+      let ret = await Request.post(url, postData);
+      if (ret.code == 0) {
+        // alert("操作成功");
+
+        this.errMsg.text = "操作成功";
+        this.frozenNum[userId] = "";
+        this.unFrozenNum[userId] = "";
+        this.$store.dispatch("userListGet", {
+          route: this.$route
+        });
+
+        this.errMsg.style.display = "none";
+      } else {
+        // alert(ret.message);
+        this.errMsg.text = ret.message;
+
+        setTimeout(() => {
+          this.errMsg.style.display = "none";
+        }, 1500);
+      }
     }
   }
 };

@@ -15,7 +15,23 @@
       </div>
     </div>
 
-    <div class="table-responsive" v-if="count">
+    <div>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" :class="navLink[0]" href="javascript:;" @click="chooseUser(0)">全部</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" :class="navLink[1]" href="javascript:;" @click="chooseUser(1)">已审核</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" :class="navLink[2]" href="javascript:;" @click="chooseUser(2)">未审核</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" :class="navLink[3]" href="javascript:;" @click="chooseUser(3)">资料未上传</a>
+        </li>
+      </ul>
+    </div>
+    <div class="table-responsive mt-3" v-if="count">
       <table class="table table-hover">
         <thead>
           <tr>
@@ -158,7 +174,13 @@ export default {
       searchKey: "",
       modalTitle: "用户信息",
       modalIsOpen: 0,
-      userDetail: {}
+      userDetail: {},
+      navLink: [
+        { disabled: true },
+        { disabled: false },
+        { disabled: false },
+        { disabled: false }
+      ]
     };
   },
   asyncData({ store, route }) {
@@ -183,27 +205,74 @@ export default {
       let date = new Date(timestamp * 1000);
       return Moment(date).format(format);
     },
-    pageChange(num) {
-      // this.$store.state.listCurrentNum = num
+    pageChange(num, where = {}) {
+      this.$store.state.listCurrentNum = num;
       let query = this.$route.query;
       let pushQuery = {};
       Object.keys(query).forEach(key => {
-        if (key != "page") {
+        if (key != "page" && key != "where") {
           pushQuery[key] = query[key];
         }
       });
       pushQuery.page = num;
-      // console.log('pageChange.query' , query)
-      this.$router.push({ path: "/user", query: pushQuery });
-      this.$store.dispatch("userListGet", { route: this.$route });
+      console.log("pageChange.pushQuery", pushQuery);
+      this.$router.push({
+        path: "/user",
+        query: pushQuery
+      });
+      this.$store.dispatch("userListGet", {
+        route: this.$route,
+        body: { where: where }
+      });
     },
     searchUser() {
       let keyword = this.searchKey;
 
-      this.$store.dispatch("userListGet", {
-        route: this.$route,
-        body: { where: { keyword: keyword } }
-      });
+      // this.$store.dispatch("userListGet", {
+      //   route: this.$route,
+      //   body: { where: { keyword: keyword } }
+      // });
+
+      this.pageChange(1, { keyword: keyword });
+      this.setNavLink(0);
+    },
+    setNavLink(type) {
+      for (let index = 0; index < this.navLink.length; index++) {
+        if (index == type) {
+          this.navLink[index].disabled = true;
+        } else {
+          this.navLink[index].disabled = false;
+        }
+      }
+    },
+    chooseUser(type = 0) {
+      let where = {};
+      if (type == 1) {
+        where.status = 1;
+        this.$router.push({ path: "/user", query: { status: 1, page: 1 } });
+      } else if (type == 2) {
+        where.status = 0;
+        where.audit = 1;
+
+        this.$router.push({
+          path: "/user",
+          query: { status: 0, audit: 1, page: 1 }
+        });
+      } else if (type == 3) {
+        where.status = 0;
+        where.audit = 0;
+        this.$router.push({ path: "/user", query: { audit: 0, page: 1 } });
+      } else {
+        this.$router.push({ path: "/user", query: { page: 1 } });
+      }
+
+      // this.$store.state.listCurrentNum = 1;
+      // this.$store.dispatch("userListGet", {
+      //   route: this.$route,
+      //   body: { where: where }
+      // });
+      this.setNavLink(type);
+      this.pageChange(1, where);
     },
     async userStatus(userId, status = 0) {
       if (!confirm(status ? "确认审核通过该用户" : "确认冻结禁用此用户")) {

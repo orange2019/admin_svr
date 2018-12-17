@@ -61,7 +61,10 @@
       </div>
 
       <div class="form-group row">
-        <label for class="col-form-label col-3">封面图</label>
+        <label for class="col-form-label col-3">封面图
+          <br>
+          <span class="text-danger">（图片比例16：9）</span>
+        </label>
         <div class="col-7">
           <input
             type="text"
