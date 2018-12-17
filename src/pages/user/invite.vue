@@ -1,6 +1,6 @@
 <template>
   <div class>
-    <h3>{{ inviteInfo.user ? inviteInfo.user.realname : '' }} / {{ inviteInfo.user.mobile }}</h3>
+    <h3>{{ inviteInfo.user ? inviteInfo.user.realname : '' }} / {{ inviteInfo.user ? inviteInfo.user.mobile : '' }}</h3>
     <hr>
 
     <div v-if="inviteInfo.invite && inviteInfo.invite.length">

@@ -22,7 +22,7 @@
             <th>操作类型</th>
             <th>操作时间</th>
             <th>数量</th>
-
+            <th>消耗GAS</th>
             <th></th>
           </tr>
         </thead>
@@ -36,6 +36,7 @@
             <td>
               <span>{{ item.num }}</span>
             </td>
+            <td>{{ item.gas_used }}</td>
             <td></td>
           </tr>
         </tbody>
@@ -64,7 +65,9 @@ const transactionTypes = [
   "转账",
   "产品购买",
   "产品收益",
-  "团队收益"
+  "团队收益",
+  "资产冻结",
+  "资产解冻"
 ];
 
 export default {
