@@ -113,6 +113,7 @@ export default {
     };
   },
   asyncData({ store, route }) {
+    store.state.listItems = [];
     store.dispatch("userListGet", { route: route });
   },
   computed: {

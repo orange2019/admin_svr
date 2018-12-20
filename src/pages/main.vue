@@ -2,6 +2,9 @@
   <div class>
     <h1 class="text-center">卡西慕用户邀请关系</h1>
     <hr>
+
+    <div class="text-center pb-3" v-html="loading"></div>
+
     <div class="table-responsive" v-if="count">
       <table class="table table-hover">
         <thead>
@@ -61,9 +64,17 @@ export default {
     };
   },
   asyncData({ store, route }) {
-    store.dispatch("userListInviteGet", { route: route });
+    store.state.listItems = [];
+    store.state.loadingText =
+      '<span class="text-muted">数据加载中，请耐心等候...</span>';
+    store.dispatch("userListInviteGet", { route: route }).then(ret => {
+      store.state.loadingText = "";
+    });
   },
   computed: {
+    loading() {
+      return this.$store.state.loadingText;
+    },
     items() {
       return this.$store.state.listItems;
     },
@@ -94,7 +105,14 @@ export default {
       pushQuery.page = num;
       // console.log('pageChange.query' , query)
       this.$router.push({ path: "/", query: pushQuery });
-      this.$store.dispatch("userListInviteGet", { route: this.$route });
+
+      this.$store.state.loadingText =
+        '<span class="text-muted">数据加载中，请耐心等候...</span>';
+      this.$store
+        .dispatch("userListInviteGet", { route: this.$route })
+        .then(ret => {
+          this.$store.state.loadingText = "";
+        });
     },
     searchUser() {
       let keyword = this.searchKey;
