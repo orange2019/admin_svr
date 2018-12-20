@@ -105,7 +105,14 @@ export default {
       pushQuery.page = num;
       // console.log('pageChange.query' , query)
       this.$router.push({ path: "/", query: pushQuery });
-      this.$store.dispatch("userListInviteGet", { route: this.$route });
+
+      this.$store.state.loadingText =
+        '<span class="text-muted">数据加载中，请耐心等候...</span>';
+      this.$store
+        .dispatch("userListInviteGet", { route: this.$route })
+        .then(ret => {
+          this.$store.state.loadingText = "";
+        });
     },
     searchUser() {
       let keyword = this.searchKey;
