@@ -16,6 +16,7 @@ import Config from './pages/config/index.vue'
 import Assets from './pages/assets/index.vue'
 import Invest from './pages/invest/index.vue'
 import InvestUpdate from './pages/invest/update.vue'
+import Manager from './pages/manager.vue'
 
 let routes = [{
     path: '/',
@@ -24,6 +25,10 @@ let routes = [{
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/manager',
+    component: Manager
   },
   {
     path: '/news',

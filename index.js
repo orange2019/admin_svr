@@ -90,6 +90,8 @@ const crypt = require("./crypt");
 // const CryptoJS = require("crypto-js")
 
 app.use("/upload", require("./upload"));
+const captcha = require('./captcha')
+app.get('/captcha', captcha.getCode)
 
 app.use("/api", async (req, res) => {
   let url = req.originalUrl;

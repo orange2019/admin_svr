@@ -16,7 +16,7 @@
 
     <div class="page-right">
       <div class="page-right-top text-right">
-        <span>{{ adminInfo.email }}</span>
+        <router-link to="/manager">{{ adminInfo.email }}</router-link>
         <span>|</span>
         <a href="javascript:;" @click="logout">退出</a>
       </div>
