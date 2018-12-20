@@ -77,6 +77,7 @@ export default {
     };
   },
   asyncData({ store, route }) {
+    store.state.listItems = [];
     store.dispatch("userTransactionListGet", {
       route: route
     });

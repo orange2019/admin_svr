@@ -13,6 +13,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state() {
     return {
+      loadingText: '',
       EDITOR: Editor,
       admin: {},
       newsData: {

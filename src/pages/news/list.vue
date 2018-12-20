@@ -1,6 +1,5 @@
 <template>
   <div class="page-news-list">
-
     <div class="page-news-list-top row">
       <div class="news-action col-12 text-right">
         <router-link to="/news/update" class="btn btn-outline-primary pl-4 pr-4">添加条目</router-link>
@@ -9,9 +8,9 @@
         <hr>
       </div>
     </div>
-    
+
     <div class="table-responsive">
-      <table class="table table-hover ">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>ID</th>
@@ -26,15 +25,22 @@
           <tr v-for="item in items">
             <td>{{item.id}}</td>
             <td class="text-truncate">{{ item.title }}</td>
-            <td>{{ formatTime(item.post_time) }} </td>
+            <td>{{ formatTime(item.post_time) }}</td>
             <td>{{ item.sort }}</td>
             <td>
               <span v-if="item.status == 0" class="text-danger">禁用</span>
               <span v-if="item.status == 1" class="text-success">正常</span>
             </td>
             <td class="text-right">
-              <router-link :to="{ path : 'news/update' , query : {id : item.id }}" class="btn btn-outline-primary btn-sm">编辑</router-link>
-              <a href="javascript:;" @click="newsDelete(item.id)" class="btn btn-outline-danger btn-sm">删除</a>
+              <router-link
+                :to="{ path : 'news/update' , query : {id : item.id }}"
+                class="btn btn-outline-primary btn-sm"
+              >编辑</router-link>
+              <a
+                href="javascript:;"
+                @click="newsDelete(item.id)"
+                class="btn btn-outline-danger btn-sm"
+              >删除</a>
             </td>
           </tr>
         </tbody>
@@ -43,7 +49,12 @@
 
     <div class="page-pagination">
       <hr>
-      <my-pagination :total="count" :display="size" :currentPage="currentPage" @pageChange="pageChange"></my-pagination>
+      <my-pagination
+        :total="count"
+        :display="size"
+        :currentPage="currentPage"
+        @pageChange="pageChange"
+      ></my-pagination>
     </div>
   </div>
 </template>
@@ -57,7 +68,8 @@ export default {
     return {};
   },
   asyncData({ store, route }) {
-    store.dispatch('newsListGet' , {route : route})
+    store.state.listItems = [];
+    store.dispatch("newsListGet", { route: route });
   },
   computed: {
     items() {
@@ -66,11 +78,11 @@ export default {
     count() {
       return this.$store.state.listCount;
     },
-    size(){
+    size() {
       return this.$store.state.listLimit;
     },
-    currentPage(){
-      return this.$store.state.listCurrentNum
+    currentPage() {
+      return this.$store.state.listCurrentNum;
     }
   },
   methods: {
@@ -93,24 +105,23 @@ export default {
       let date = new Date(timestamp * 1000);
       return Moment(date).format(format);
     },
-    pageChange(num){
+    pageChange(num) {
       // this.$store.state.listCurrentNum = num
-      let query = this.$route.query
-      let pushQuery = {}
+      let query = this.$route.query;
+      let pushQuery = {};
       Object.keys(query).forEach(key => {
-        if(key != 'page'){
-          pushQuery[key] = query[key]
+        if (key != "page") {
+          pushQuery[key] = query[key];
         }
-        
-      })
-      pushQuery.page = num
+      });
+      pushQuery.page = num;
       // console.log('pageChange.query' , query)
-      this.$router.push({path: '/news' , query: pushQuery })
-      this.$store.dispatch('newsListGet' , {route : this.$route})
+      this.$router.push({ path: "/news", query: pushQuery });
+      this.$store.dispatch("newsListGet", { route: this.$route });
       // setTimeout(() => {
       //   this.$router.go(0)
       // }, 0);
-      // 
+      //
     }
   },
   beforeRouteEnter(to, from, next) {
