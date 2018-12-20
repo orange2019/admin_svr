@@ -134,7 +134,6 @@ app.use("/api", async (req, res) => {
     let retBody = ret.body;
 
     apiLog.info(`${reqUuid}|${req.originalUrl}`, "retBody", retBody);
-
     // console.log(req.session)
     Object.keys(retBody.content.session).forEach(key => {
       if (key !== "cookie") {
@@ -147,10 +146,10 @@ app.use("/api", async (req, res) => {
     return res.json(retBody.content.result);
   } catch (err) {
     console.log(err);
-    apiLog.info(`${reqUuid}|${req.originalUrl}`, "err", err);
+    apiLog.info(`${reqUuid}|${req.originalUrl}`, "err", err.message || err);
     return res.json({
       code: -1,
-      message: "request err"
+      message: "网络异常，请稍后重试"
     });
   }
 });
