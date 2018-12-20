@@ -146,7 +146,7 @@ app.use("/api", async (req, res) => {
     return res.json(retBody.content.result);
   } catch (err) {
     console.log(err);
-    apiLog.info(`${reqUuid}|${req.originalUrl}`, "err", err.message || err);
+    apiLog.error(`${reqUuid}|${req.originalUrl}`, "err", err.message || err);
     return res.json({
       code: -1,
       message: "网络异常，请稍后重试"
