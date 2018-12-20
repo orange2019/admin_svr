@@ -7,6 +7,7 @@ import UserStore from './user/index'
 import ConfigStore from './config/index'
 import AssetsStore from './assets/index'
 import InvestStore from './invest/index'
+import MallStore from './mall/index'
 
 Vue.use(Vuex)
 
@@ -71,6 +72,11 @@ const store = new Vuex.Store({
       let ret = await Reqeust.post('/api/auth/logout')
       console.log('request /api/auth/logout ret', ret)
       state.admin = null
+    },
+    async goodList({
+      state
+    }, data) {
+      return await MallStore.goodList(state, data.route)
     },
     async newsListGet({
       state

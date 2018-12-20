@@ -6,6 +6,7 @@ Vue.use(Router)
 import Home from './pages/main.vue'
 import Login from './pages/login.vue'
 import NewsUpdate from './pages/news/update.vue'
+import MallList from './pages/mall/list.vue'
 import NewsList from './pages/news/list.vue'
 import UserList from './pages/user/list.vue'
 import UserInvest from './pages/user/invest.vue'
@@ -73,7 +74,15 @@ let routes = [{
   {
     path: '/user/invite',
     component: UserInvite
-  }
+  },
+  {
+    path: '/mall',
+    component: MallList
+  },
+  // {
+  //   path: '/mall/update',
+  //   component: 
+  // }
 ]
 
 export function createRouter() {
