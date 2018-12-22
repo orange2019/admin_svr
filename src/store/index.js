@@ -29,6 +29,17 @@ const store = new Vuex.Store({
         category: "",
         sort: 0
       },
+      goodData: {
+        id: "",
+        c_id: "",
+        name: "",
+        cover: "",
+        info: "",
+        description: "",
+        price: "",
+        stock: 0,
+        status: 0,
+      },
       listItems: [],
       listCount: 0,
       listCurrentNum: 1,

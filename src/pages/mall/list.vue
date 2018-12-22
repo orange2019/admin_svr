@@ -3,7 +3,7 @@
 
     <div class="page-mall-list-top row">
       <div class="mall-action col-12 text-right">
-        <router-link to="/mall/update" class="btn btn-outline-primary pl-4 pr-4">添加商品</router-link>
+        <router-link to="mall/add" class="btn btn-outline-primary pl-4 pr-4">添加商品</router-link>
       </div>
       <div class="col-12">
         <hr>
@@ -41,8 +41,9 @@
               <span v-if="item.status == 1" class="text-success">上架</span>
             </td>
             <td >
-              <router-link :to="{ path : 'news/update' , query : {id : item.id }}" class="btn btn-outline-primary btn-sm">编辑商品</router-link>
-              <a href="javascript:;" @click="newsDelete(item.id)" class="btn btn-outline-danger btn-sm">下架商品</a>
+              <router-link :to="{ path : 'mall/update' , query : {id : item.id }}" class="btn btn-outline-primary btn-sm">编辑商品</router-link>
+              <a v-if="item.status == 1" href="javascript:;" @click="goodDelete(item.id)" class="btn btn-outline-danger btn-sm">下架商品</a>
+              <a v-if="item.status == 0" href="javascript:;" @click="goodShelves(item.id)" class="btn btn-outline-danger btn-sm">上架商品</a>
             </td>
           </tr>
         </tbody>
@@ -82,13 +83,13 @@ export default {
     }
   },
   methods: {
-    async newsDelete(newsId) {
+    async goodDelete(id) {
       // console.log(this.$route)
       // console.log(this.$router)
       if (confirm("确认删除?")) {
-        let ret = await Request.post("/api/news/status", {
-          news_id: newsId,
-          status: -1
+        let ret = await Request.post("/api/goods/modifyGood", {
+          id: id,
+          status: 0
         });
         if (ret.code == 0) {
           this.$router.go(0);
@@ -97,6 +98,22 @@ export default {
         }
       }
     },
+     async goodShelves(id) {
+      // console.log(this.$route)
+      // console.log(this.$router)
+      if (confirm("确认上架?")) {
+        let ret = await Request.post("/api/goods/modifyGood", {
+          id: id,
+          status: 1
+        });
+        if (ret.code == 0) {
+          this.$router.go(0);
+        } else {
+          alert("删除失败");
+        }
+      }
+    },
+
     formatTime(timestamp, format = "YYYY-MM-DD HH:mm") {
       let date = new Date(timestamp * 1000);
       return Moment(date).format(format);

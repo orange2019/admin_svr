@@ -73,7 +73,7 @@ export default {
         {
           name: "商城管理",
           url: "/mall",
-          type: 2
+          type: 0
         },
         {
           name: "新闻资讯",
