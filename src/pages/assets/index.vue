@@ -21,7 +21,7 @@
       </p>
     </div>
 
-    <div class="mt-5">
+    <div class="mt-5" v-if="adminInfo.type == 0">
       <h3>
         测试充值代币
         <small class="text-danger">测试用，慎点</small>
@@ -68,6 +68,9 @@ export default {
   computed: {
     tokenInfo() {
       return this.$store.state.tokenInfo;
+    },
+    adminInfo() {
+      return this.$store.state.admin;
     }
   },
   methods: {

@@ -10,7 +10,8 @@
     "ssr": "webpack --config ./build/webpack.ssr.js",
     "start": "cross-env NODE_ENV=production forever start index.js",
     "server": "cross-env NODE_ENV=production nodemon index.js",
-    "prod": "webpack --config ./build/webpack.prod.js && webpack --config ./build/webpack.ssr.js && cross-env NODE_ENV=production node index.js"
+    "prod": "webpack --config ./build/webpack.prod.js && webpack --config ./build/webpack.ssr.js && cross-env NODE_ENV=production node index.js",
+    "stop": "forever stop index.js"
   },
   "repository": {
     "type": "git",
