@@ -28,6 +28,7 @@
             <th>操作</th>
             <th>冻结资产</th>
             <th>解冻资产</th>
+            <th>充值</th>
           </tr>
         </thead>
         <tbody>
@@ -48,12 +49,16 @@
               <router-link :to="{path : '/user/invest' , query : {user_id : item.id}}">投产信息</router-link>
             </td>
             <td>
-              <input type="number" v-model="frozenNum[item.id]" style="width:100px;">
+              <input type="number" v-model="frozenNum[item.id]" style="width:80px;">
               <a href="javascript:;" @click="forzen(item.id , 0)" class="btn btn-sm btn-danger">冻结</a>
             </td>
             <td>
-              <input type="number" v-model="unFrozenNum[item.id]" style="width:100px;">
+              <input type="number" v-model="unFrozenNum[item.id]" style="width:80px;">
               <a href="javascript:;" @click="forzen(item.id , 1)" class="btn btn-sm btn-primary">解冻</a>
+            </td>
+            <td>
+              <input type="number" v-model="assetsInNum[item.id]" style="width:80px;">
+              <a href="javascript:;" @click="assetsIn(item.id)" class="btn btn-sm btn-primary">充值</a>
             </td>
           </tr>
         </tbody>
@@ -89,6 +94,7 @@ export default {
       searchKey: "",
       frozenNum: {},
       unFrozenNum: {},
+      assetsInNum: {},
       errMsg: {
         text: "",
         style: {
@@ -179,6 +185,48 @@ export default {
       console.log(ret);
       alert(ret.data.tokenBalance);
     },
+    async assetsIn(userId) {
+      let num = this.assetsInNum[userId] || 0;
+      let url = "/api/assets/in";
+
+      if (num == 0) {
+        return false;
+      }
+
+      if (!confirm("确认充值:" + num)) {
+        return false;
+      }
+
+      this.errMsg.style.display = "block";
+      this.errMsg.text = "操作进行中...";
+
+      let postData = {
+        user_id: userId,
+        num: num
+      };
+
+      console.log("assetsIn postData", postData);
+
+      let ret = await Request.post(url, postData);
+      if (ret.code == 0) {
+        // alert("操作成功");
+
+        this.errMsg.text = "操作成功";
+        this.assetsInNum[userId] = "";
+        this.$store.dispatch("userListGet", {
+          route: this.$route
+        });
+
+        this.errMsg.style.display = "none";
+      } else {
+        // alert(ret.message);
+        this.errMsg.text = ret.message;
+
+        setTimeout(() => {
+          this.errMsg.style.display = "none";
+        }, 1500);
+      }
+    },
     async forzen(userId, type = 0) {
       let num = 0;
       let url = "";
@@ -191,6 +239,10 @@ export default {
       }
 
       if (num == 0) {
+        return false;
+      }
+
+      if (!confirm("确认" + (type == 0 ? "冻结" : "解冻") + num)) {
         return false;
       }
 
