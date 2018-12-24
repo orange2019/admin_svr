@@ -8,21 +8,12 @@ const path = require("path");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackHotMiddleware = require("webpack-hot-middleware");
-const {
-  createBundleRenderer
-} = require("vue-server-renderer");
+const { createBundleRenderer } = require("vue-server-renderer");
 const config = require("./config");
 const SSR = false;
 
 let app = express();
 const Log = require("./log");
-
-// 单独起一个文件服务
-// let app2 = express();
-// app2.use("/uploads", express.static(path.join(__dirname, "./uploads")));
-// app2.listen(4004, () => {
-//   console.log("file server started on port:" + 4004);
-// });
 
 const bodyParser = require("body-parser"); // 处理请求中body的内容
 const methodOverride = require("method-override");
@@ -31,8 +22,8 @@ const session = require("express-session"); // session中间件
 const RedisStrore = require("connect-redis")(session);
 
 const sessionStore = {
-  // host: process.env.NODE_ENV == 'production' ? '127.0.0.1' : "ec2-18-188-112-81.us-east-2.compute.amazonaws.com",
-  host: 'ec2-54-169-177-12.ap-southeast-1.compute.amazonaws.com',
+  host: process.env.NODE_ENV == "production" ? "127.0.0.1" : "47.52.193.103",
+  // host: "47.52.193.103",
   port: 6379
 };
 // session 支持
@@ -90,19 +81,16 @@ const crypt = require("./crypt");
 // const CryptoJS = require("crypto-js")
 
 app.use("/upload", require("./upload"));
-const captcha = require('./captcha')
-app.get('/captcha', captcha.getCode)
+const captcha = require("./captcha");
+app.get("/captcha", captcha.getCode);
 
 app.use("/api", async (req, res) => {
   let url = req.originalUrl;
   let apiLog = Log("api");
 
-  // let apiUrl = process.env.NODE_ENV == 'production' ? 'http://ec2-54-169-177-12.ap-southeast-1.compute.amazonaws.com:4001' : '127.0.0.1:4001'
-  let apiUrl = '127.0.0.1:4001'
-  url = url.replace(
-    "/api",
-    apiUrl + "/admin"
-  );
+  // let apiUrl = process.env.NODE_ENV == 'production' ? 'http://47.52.193.103:4001' : '127.0.0.1:4001'
+  let apiUrl = "127.0.0.1:4001";
+  url = url.replace("/api", apiUrl + "/admin");
 
   const reqUuid = uuid.v4();
   // let data = JSON.stringify({
@@ -245,6 +233,6 @@ if (nodeEnv !== "production") {
 
 const PROT = process.env.port || 4000;
 
-app.listen(PROT, function () {
+app.listen(PROT, function() {
   console.log(`Vue express ssr server: app listening on port ${PROT}!\n`);
 });
