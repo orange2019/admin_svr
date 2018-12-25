@@ -1,17 +1,25 @@
 {
   "publicPath": "/",
   "all": [
-    "css/app.81018fafe712dae09161.css",
-    "css/app.81018fafe712dae09161.css.map",
+    "css/app.b02adf7632a967799294.css",
+    "css/app.b02adf7632a967799294.css.map",
     "index.html",
-    "js/app.81018fafe712dae09161.js",
-    "js/app.81018fafe712dae09161.js.map"
+    "js/app.b02adf7632a967799294.js",
+    "js/app.b02adf7632a967799294.js.map"
   ],
   "initial": [
-    "js/app.81018fafe712dae09161.js"
+    "js/app.b02adf7632a967799294.js"
   ],
   "async": [],
   "modules": {
+    "16692275": [
+      3,
+      0,
+      0,
+      4,
+      1,
+      1
+    ],
     "19974386": [
       3,
       0,
@@ -1253,14 +1261,6 @@
       1
     ],
     "c4c86524": [
-      3,
-      0,
-      0,
-      4,
-      1,
-      1
-    ],
-    "676dc1e8": [
       3,
       0,
       0,
