@@ -209,6 +209,7 @@ export default {
     pageChange(num, where = {}) {
       this.$store.state.listCurrentNum = num;
       let query = this.$route.query;
+      console.log("query", query);
       let pushQuery = {};
       Object.keys(query).forEach(key => {
         if (key != "page" && key != "where") {
@@ -252,17 +253,20 @@ export default {
         where.status = 1;
         this.$router.push({ path: "/user", query: { status: 1, page: 1 } });
       } else if (type == 2) {
-        where.status = 0;
-        where.audit = 1;
+        // where.status = 0;
+        // where.audit = 1;
 
         this.$router.push({
           path: "/user",
           query: { status: 0, audit: 1, page: 1 }
         });
       } else if (type == 3) {
-        where.status = 0;
-        where.audit = 0;
-        this.$router.push({ path: "/user", query: { audit: 0, page: 1 } });
+        // where.status = 0;
+        // where.audit = 0;
+        this.$router.push({
+          path: "/user",
+          query: { audit: 0, status: 0, page: 1 }
+        });
       } else {
         this.$router.push({ path: "/user", query: { page: 1 } });
       }

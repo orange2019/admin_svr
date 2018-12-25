@@ -12,7 +12,7 @@ class NewsStore {
     // store.state.searchKeyword = searchKeyword
     console.log("/api/user/list.query", query);
 
-    body = Object.assign(query, body)
+    body.where = Object.assign(query, body.where)
     body.offset = (query.page - 1) * query.limit
     console.log("/api/user/list.body", body);
     let ret = await Request.post("/api/user/list", body)
