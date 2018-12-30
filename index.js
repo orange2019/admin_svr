@@ -8,7 +8,9 @@ const path = require("path");
 const webpack = require("webpack");
 const webpackDevMiddleware = require("webpack-dev-middleware");
 const webpackHotMiddleware = require("webpack-hot-middleware");
-const { createBundleRenderer } = require("vue-server-renderer");
+const {
+  createBundleRenderer
+} = require("vue-server-renderer");
 const config = require("./config");
 const SSR = false;
 
@@ -19,13 +21,13 @@ const bodyParser = require("body-parser"); // 处理请求中body的内容
 const methodOverride = require("method-override");
 
 const session = require("express-session"); // session中间件
-const RedisStrore = require("connect-redis")(session);
+// const RedisStrore = require("connect-redis")(session);
 
-const sessionStore = {
-  host: process.env.NODE_ENV == "production" ? "127.0.0.1" : "47.52.193.103",
-  // host: "47.52.193.103",
-  port: 6379
-};
+// const sessionStore = {
+//   host: process.env.NODE_ENV == "production" ? "127.0.0.1" : "47.52.193.103",
+//   // host: "47.52.193.103",
+//   port: 6379
+// };
 // session 支持
 app.use(
   session({
@@ -37,7 +39,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24
     },
     secret: "123456", // session加密
-    store: new RedisStrore(sessionStore)
+    // store: new RedisStrore(sessionStore)
   })
 );
 
@@ -233,6 +235,6 @@ if (nodeEnv !== "production") {
 
 const PROT = process.env.port || 4000;
 
-app.listen(PROT, function() {
+app.listen(PROT, function () {
   console.log(`Vue express ssr server: app listening on port ${PROT}!\n`);
 });
