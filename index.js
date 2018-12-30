@@ -91,9 +91,9 @@ app.use("/api", async (req, res) => {
   let apiLog = Log("api");
 
   // let apiUrl = process.env.NODE_ENV == 'production' ? 'http://47.52.193.103:4001' : '127.0.0.1:4001'
-  let apiUrl = "127.0.0.1:4001";
+  let apiUrl = "http://127.0.0.1:4001";
   if (process.env.NODE_ENV == 'test') {
-    apiUrl = "127.0.0.1:5001";
+    apiUrl = "http://127.0.0.1:5001";
   }
   url = url.replace("/api", apiUrl + "/admin");
 
