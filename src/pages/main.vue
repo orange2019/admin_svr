@@ -1,7 +1,29 @@
 <template>
   <div class>
-    <h1 class="text-center">卡西慕后台管理</h1>
+    <h1 class>卡西慕后台管理</h1>
     <hr>
+
+    <div class="row">
+      <div class="col-2">
+        <router-link to="/user">用户列表</router-link>
+      </div>
+      <div class="col-2" v-if="adminInfo.type != 2">
+        <router-link to="/user/relation">用户关系数据</router-link>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-2" v-if="adminInfo.type != 2">
+        <router-link to="/user/assets">用户资产</router-link>
+      </div>
+      <div class="col-2" v-if="adminInfo.type != 2">
+        <router-link to="/user/transaction">用户交易数据</router-link>
+      </div>
+
+      <div class="col-2" v-if="adminInfo.type != 2">
+        <router-link to="/assets/out">提币申请审核</router-link>
+      </div>
+    </div>
 
     <!-- <div class="text-center pb-3" v-html="loading"></div>
 
@@ -61,7 +83,14 @@ export default {
     };
   },
   asyncData({ store, route }) {},
-  computed: {},
+  computed: {
+    adminInfo() {
+      if (!this.$store.state.admin && this.$route.path != "/login") {
+        return (location.href = "/login");
+      }
+      return this.$store.state.admin;
+    }
+  },
   methods: {}
 };
 </script>

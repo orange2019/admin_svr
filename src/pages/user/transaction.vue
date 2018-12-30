@@ -2,7 +2,7 @@
   <div class="page-user-transaction">
     <div class="row page-user-transaction-top">
       <div class="col-6">
-        <h6>用户交易记录</h6>
+        <h4>用户交易记录</h4>
       </div>
       <div class="col-6 text-right">
         <a href="javascript:history.go(-1);" class="btn btn-outline-primary">返回</a>
@@ -10,6 +10,15 @@
       <div class="col-12">
         <hr>
       </div>
+    </div>
+
+    <div class>
+      <ul class="nav">
+        <li v-for="(val,i) in transactionTypes" class="nav-item" @click="chooseType(i)">
+          <a href class="nav-link text-muted" v-if="navType == i">{{val}}</a>
+          <a href class="nav-link" v-else>{{val}}</a>
+        </li>
+      </ul>
     </div>
 
     <div class="table-responsive" v-if="count">
@@ -59,7 +68,7 @@
 import Request from "./../../api/common/request";
 import Moment from "moment";
 const transactionTypes = [
-  "",
+  "全部",
   "充值",
   "提币",
   "转账",
@@ -67,7 +76,9 @@ const transactionTypes = [
   "产品收益",
   "团队收益",
   "资产冻结",
-  "资产解冻"
+  "资产解冻",
+  "投资解冻",
+  "积分兑换"
 ];
 
 export default {
@@ -83,6 +94,9 @@ export default {
     });
   },
   computed: {
+    navType() {
+      return this.$route.query.type || 0;
+    },
     items() {
       return this.$store.state.listItems;
     },
@@ -100,6 +114,25 @@ export default {
     formatTime(timestamp, format = "YYYY-MM-DD HH:mm") {
       let date = new Date(timestamp * 1000);
       return Moment(date).format(format);
+    },
+    chooseType(i) {
+      this.$route.query.page = 1;
+      this.$route.query.type = i;
+
+      let query = this.$route.query;
+      let pushQuery = {};
+      Object.keys(query).forEach(key => {
+        if (key != "page") {
+          pushQuery[key] = query[key];
+        }
+      });
+      this.$router.push({
+        path: "/user/transaction",
+        query: pushQuery
+      });
+      this.$store.dispatch("userTransactionListGet", {
+        route: this.$route
+      });
     },
     pageChange(num) {
       let query = this.$route.query;

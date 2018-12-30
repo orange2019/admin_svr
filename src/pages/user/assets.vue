@@ -241,7 +241,8 @@ export default {
     assetsInClose() {
       this.checkBoxStyle.display = "none";
       this.checkBoxTitle = "";
-      this.postData.user_id = item.user_id;
+      this.postData.user_id = 0;
+      this.postData.num = "";
     },
     async assetsInOpen(item) {
       this.checkBoxStyle.display = "block";
