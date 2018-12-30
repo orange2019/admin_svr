@@ -1,9 +1,9 @@
 <template>
   <div class>
-    <h1 class="text-center">卡西慕用户邀请关系</h1>
+    <h1 class="text-center">卡西慕后台管理</h1>
     <hr>
 
-    <div class="text-center pb-3" v-html="loading"></div>
+    <!-- <div class="text-center pb-3" v-html="loading"></div>
 
     <div class="table-responsive" v-if="count">
       <table class="table table-hover">
@@ -49,83 +49,20 @@
           @pageChange="pageChange"
         ></my-pagination>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
-import Request from "./../api/common/request";
-import Moment from "moment";
-
 export default {
   data() {
     return {
       searchKey: ""
     };
   },
-  asyncData({ store, route }) {
-    store.state.listItems = [];
-    store.state.loadingText =
-      '<span class="text-muted">数据加载中，请耐心等候...</span>';
-    store.dispatch("userListInviteGet", { route: route }).then(ret => {
-      store.state.loadingText = "";
-    });
-  },
-  computed: {
-    loading() {
-      return this.$store.state.loadingText;
-    },
-    items() {
-      return this.$store.state.listItems;
-    },
-    count() {
-      return this.$store.state.listCount;
-    },
-    size() {
-      return this.$store.state.listLimit;
-    },
-    currentPage() {
-      return this.$store.state.listCurrentNum;
-    }
-  },
-  methods: {
-    formatTime(timestamp, format = "YYYY-MM-DD HH:mm") {
-      let date = new Date(timestamp * 1000);
-      return Moment(date).format(format);
-    },
-    pageChange(num) {
-      this.$store.state.listCurrentNum = num;
-      let query = this.$route.query;
-      let pushQuery = {};
-      Object.keys(query).forEach(key => {
-        if (key != "page") {
-          pushQuery[key] = query[key];
-        }
-      });
-      pushQuery.page = num;
-      // console.log('pageChange.query' , query)
-      this.$router.push({ path: "/", query: pushQuery });
-
-      this.$store.state.loadingText =
-        '<span class="text-muted">数据加载中，请耐心等候...</span>';
-      this.$store
-        .dispatch("userListInviteGet", { route: this.$route })
-        .then(ret => {
-          this.$store.state.loadingText = "";
-        });
-    },
-    searchUser() {
-      let keyword = this.searchKey;
-
-      this.$store.dispatch("userListInviteGet", {
-        route: this.$route,
-        body: { where: { keyword: keyword } }
-      });
-    },
-    goTo(path, userId) {
-      this.$router.push({ path: path, query: { user_id: userId } });
-    }
-  }
+  asyncData({ store, route }) {},
+  computed: {},
+  methods: {}
 };
 </script>
 

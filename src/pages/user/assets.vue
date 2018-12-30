@@ -28,7 +28,6 @@
             <th>操作</th>
             <th>冻结资产</th>
             <th>解冻资产</th>
-            <th>充值</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +45,18 @@
               <span v-if="item.status == 1" class="text-success">正常</span>
             </td>
             <td>
-              <router-link :to="{path : '/user/invest' , query : {user_id : item.id}}">投产信息</router-link>
+              <router-link
+                :to="{path : '/user/invest' , query : {user_id : item.id}}"
+                class="btn btn-outline-primary btn-sm"
+              >投产信息</router-link>
+              <router-link
+                :to="{path : '/user/transaction' , query : {user_id : item.id}}"
+                class="btn btn-outline-primary btn-sm"
+              >交易记录</router-link>
+              <router-link
+                :to="{path : '/assets/out' , query : {user_id : item.id}}"
+                class="btn btn-outline-primary btn-sm"
+              >提币审核</router-link>
             </td>
             <td>
               <input type="number" v-model="frozenNum[item.id]" style="width:80px;">
@@ -57,8 +67,8 @@
               <a href="javascript:;" @click="forzen(item.id , 1)" class="btn btn-sm btn-primary">解冻</a>
             </td>
             <td>
-              <input type="number" v-model="assetsInNum[item.id]" style="width:80px;">
-              <a href="javascript:;" @click="assetsIn(item.id)" class="btn btn-sm btn-primary">充值</a>
+              <!-- <input type="number" v-model="assetsInNum[item.id]" style="width:80px;"> -->
+              <a href="javascript:;" @click="assetsInOpen(item)" class="btn btn-sm btn-primary">充值</a>
             </td>
           </tr>
         </tbody>
@@ -78,6 +88,38 @@
       <p class="text-center">无数据</p>
     </div>
 
+    <div class="position-fixed fixed-top w-100 h-100 bg-light p-3" :style="checkBoxStyle">
+      <div class="text-right">
+        <a href="javascript:;" class="btn btn-outline-danger" @click="assetsInClose">关闭</a>
+      </div>
+      <hr>
+      <div v-html="checkBoxTitle" class="h4"></div>
+      <div class>
+        <form class="w-50" @submit.prevent="assetsIn">
+          <div class="form-group">
+            <label for>输入充值数量</label>
+            <div class>
+              <input type="text" class="form-control" v-model="postData.num">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for>输入短信验证码</label>
+            <div class="row">
+              <div class="col-10">
+                <input type="text" class="form-control" v-model="postData.code">
+              </div>
+              <div class="col-2">
+                <a href="javascript:;" @click="sendSms" class="btn btn-outline-primary btn-block">发送</a>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="确认" class="btn btn-primary">
+          </div>
+        </form>
+        <div v-html="checkBoxMsg" class="text-danger mt-3"></div>
+      </div>
+    </div>
     <div class="bg" :style="errMsg.style">
       <div class v-html="errMsg.text" :style="errMsg.textStyle"></div>
     </div>
@@ -115,6 +157,17 @@ export default {
           color: "#fff",
           "text-align": "center"
         }
+      },
+      checkBoxStyle: {
+        "padding-left": "250px !important",
+        display: "none"
+      },
+      checkBoxTitle: "",
+      checkBoxMsg: "",
+      postData: {
+        num: "",
+        code: "",
+        user_id: 0
       }
     };
   },
@@ -185,8 +238,34 @@ export default {
       console.log(ret);
       alert(ret.data.tokenBalance);
     },
-    async assetsIn(userId) {
-      let num = this.assetsInNum[userId] || 0;
+    assetsInClose() {
+      this.checkBoxStyle.display = "none";
+      this.checkBoxTitle = "";
+      this.postData.user_id = item.user_id;
+    },
+    async assetsInOpen(item) {
+      this.checkBoxStyle.display = "block";
+      this.checkBoxMsg = "";
+      this.checkBoxTitle = "用户 " + item.user_info.realname + " 充值";
+
+      this.postData.user_id = item.id;
+      console.log("this.postData.user_id", this.postData.user_id);
+    },
+    async sendSms() {
+      let url = "/api/auth/verifyCode";
+      let ret = await Request.post(url, {});
+      console.log("sendSms ret", ret);
+      if (ret.code == 0) {
+        this.checkBoxMsg = "发送验证码成功";
+      } else {
+        this.checkBoxMsg = "发送验证码失败";
+      }
+    },
+
+    async assetsIn() {
+      let userId = this.postData.user_id;
+      let num = this.postData.num || 0;
+      let code = this.postData.code || "";
       let url = "/api/assets/in";
 
       if (num == 0) {
@@ -197,12 +276,13 @@ export default {
         return false;
       }
 
-      this.errMsg.style.display = "block";
-      this.errMsg.text = "操作进行中...";
+      // this.errMsg.style.display = "block";
+      this.checkBoxMsg = "操作进行中...";
 
       let postData = {
         user_id: userId,
-        num: num
+        num: num,
+        code: code
       };
 
       console.log("assetsIn postData", postData);
@@ -211,20 +291,17 @@ export default {
       if (ret.code == 0) {
         // alert("操作成功");
 
-        this.errMsg.text = "操作成功";
-        this.assetsInNum[userId] = "";
+        this.checkBoxMsg = "操作成功";
+        this.assetsInClose();
+        // this.assetsInNum[userId] = "";
         this.$store.dispatch("userListGet", {
           route: this.$route
         });
 
-        this.errMsg.style.display = "none";
+        // this.errMsg.style.display = "none";
       } else {
         // alert(ret.message);
-        this.errMsg.text = ret.message;
-
-        setTimeout(() => {
-          this.errMsg.style.display = "none";
-        }, 1500);
+        this.checkBoxMsg = ret.message;
       }
     },
     async forzen(userId, type = 0) {

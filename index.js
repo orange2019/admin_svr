@@ -237,7 +237,7 @@ if (nodeEnv !== "production") {
 }
 
 let PROT = process.env.port || 4000;
-if (process.env.NODE_ENV = 'test') {
+if (process.env.NODE_ENV == 'test') {
   PROT = '5000'
 }
 

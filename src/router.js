@@ -11,9 +11,11 @@ import MallUpdate from './pages/mall/update.vue'
 import MallAdd from './pages/mall/add.vue'
 import NewsList from './pages/news/list.vue'
 import UserList from './pages/user/list.vue'
+import UserRelation from './pages/user/relation.vue'
 import UserInvest from './pages/user/invest.vue'
 import UserTransaction from './pages/user/transaction.vue'
 import UserAssets from './pages/user/assets.vue'
+import AssetsOut from './pages/assets/out.vue'
 import UserInvite from './pages/user/invite.vue'
 import Config from './pages/config/index.vue'
 import Assets from './pages/assets/index.vue'
@@ -46,6 +48,10 @@ let routes = [{
     component: UserList
   },
   {
+    path: '/user/relation',
+    component: UserRelation
+  },
+  {
     path: '/user/invest',
     component: UserInvest
   },
@@ -60,6 +66,10 @@ let routes = [{
   {
     path: '/assets',
     component: Assets
+  },
+  {
+    path: '/assets/out',
+    component: AssetsOut
   },
   {
     path: '/config',
@@ -87,7 +97,7 @@ let routes = [{
   },
   {
     path: '/mall/add',
-    component:MallAdd
+    component: MallAdd
   },
 ]
 

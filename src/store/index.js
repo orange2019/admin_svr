@@ -100,6 +100,11 @@ const store = new Vuex.Store({
     }, data) {
       return await UserStore.getList(state, data.route, data.body || {})
     },
+    async assetsOutListGet({
+      state
+    }, data) {
+      return await AssetsStore.getAssetsOutList(state, data.route, data.body || {})
+    },
     async userInviteGet({
       state
     }, data) {

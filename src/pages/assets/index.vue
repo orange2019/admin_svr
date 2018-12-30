@@ -18,6 +18,7 @@
       <p>
         <router-link to="/user/assets" class="btn btn-outline-primary">用户资产列表</router-link>
         <router-link to="/user/transaction" class="btn btn-outline-primary">资产交易数据</router-link>
+        <router-link to="/assets/out" class="btn btn-outline-primary">用户提币审核</router-link>
       </p>
     </div>
 

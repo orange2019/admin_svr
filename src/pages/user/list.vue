@@ -8,7 +8,7 @@
         <a href="javascript:" class="btn btn-sm" @click="searchUser">搜索</a>
       </div>
       <div class="col-8 text-right">
-        <router-link to="/user/assets" class="btn btn-outline-primary">用户资产</router-link>
+        <router-link to="/user/relation" class="btn btn-outline-primary">用户关系列表</router-link>
       </div>
       <div class="col-12">
         <hr>
