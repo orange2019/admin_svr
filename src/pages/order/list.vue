@@ -31,11 +31,10 @@
             <td>{{item.amount}}</td>
             <td>{{getStatus(item.status)}}</td>
             <td>
-              <router-link
-                :to="{ path : 'order/update' , query : {id : item.id }}"
-                class="btn btn-outline-primary btn-sm"
-              >详情及管理</router-link>
-              
+              <router-link :to="{ path : 'order/update' , query : {id : item.id }}" 
+                class="btn btn-outline-primary btn-sm">详情及管理</router-link>
+              <a v-if="item.status == 2" href="javascript:;" 
+                @click="orderShip(item.id)" class="btn btn-outline-success btn-sm">发货</a>
             </td>
           </tr>
         </tbody>
@@ -50,6 +49,7 @@
   </div>
 </template>
 <script>
+import Request from "./../../api/common/request";
 export default {
   data() {
     return {};
@@ -90,6 +90,20 @@ export default {
       //   this.$router.go(0)
       // }, 0);
       // 
+    },
+    async orderShip(id) {
+      if (confirm("确认发货?")) {
+        let ret = await Request.post("/api/order/orderModify", {
+          id: id,
+          status: 3
+        });
+        if (ret.code == 0) {
+          this.$router.go(0);
+          // alert("成功");
+        } else {
+          alert("删除失败");
+        }
+      }
     },
     getStatus(statusNums) {
       let statusFields = {
