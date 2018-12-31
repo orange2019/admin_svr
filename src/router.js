@@ -22,7 +22,8 @@ import Assets from './pages/assets/index.vue'
 import Invest from './pages/invest/index.vue'
 import InvestUpdate from './pages/invest/update.vue'
 import Manager from './pages/manager.vue'
-
+import OrderList from './pages/order/list.vue'
+import OrderUpdate from './pages/order/update.vue'
 let routes = [{
     path: '/',
     component: Home
@@ -99,6 +100,14 @@ let routes = [{
     path: '/mall/add',
     component: MallAdd
   },
+  {
+    path: '/order',
+    component:OrderList
+  },
+  {
+    path: '/order/update',
+    component: OrderUpdate
+  }
 ]
 
 export function createRouter() {

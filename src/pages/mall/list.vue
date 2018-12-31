@@ -2,7 +2,10 @@
   <div class="page-mall-list">
 
     <div class="page-mall-list-top row">
-      <div class="mall-action col-12 text-right">
+      <div class="mall-action col-6 text-left">
+        <router-link to="order" class="btn btn-outline-primary pl-4 pr-4">订单管理</router-link>
+      </div>
+      <div class="mall-action col-6 text-right">
         <router-link to="mall/add" class="btn btn-outline-primary pl-4 pr-4">添加商品</router-link>
       </div>
       <div class="col-12">
@@ -34,7 +37,7 @@
             <td>{{item.description}}</td>
             <td>{{item.price}}</td>
             <td>{{item.stock}}</td>
-            <td><img :src="item.cover"/></td>
+            <td><img :src="item.cover" height="100"/></td>
             <td>{{formatTime(item.create_time)}}</td>
             <td>
               <span v-if="item.status == 0" class="text-danger">下架</span>

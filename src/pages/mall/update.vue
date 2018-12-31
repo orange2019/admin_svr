@@ -2,7 +2,7 @@
   <div class="page-goods-update">
     <div class="row">
       <div class="col-6">
-        <h6>新商品添加编辑</h6>
+        <h6>商品编辑</h6>
       </div>
       <div class="col-6 text-right">
         <a href="javascript:history.go(-1)" class="btn btn-outline-primary">返回</a>
@@ -48,15 +48,8 @@
             v-model="goodData.description"
             placeholder="请输入商品描述"
             id="news-content"
-            v-html="goodData.description"
+            v-html=goodData.description
           ></textarea>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for class="col-form-label col-3">创建时间</label>
-        <div class="col-9">
-          <input type="datetime-local" v-model="goodData.create_time" required class="form-control">
         </div>
       </div>
 
@@ -71,7 +64,7 @@
             v-model.lazy="goodData.cover"
             required
             class="form-control"
-            id="news-cover-input"
+            id="goods-cover-input"
           >
           <div>
             <img :src="goodData.cover" alt id="news-cover-pre" height="100" class="mt-1">
@@ -95,6 +88,18 @@
             placeholder="请输入商品价格"
             required
             v-model="goodData.price"
+          >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for class="col-form-label col-3">库存11</label>
+        <div class="col-9">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="请输入商品库存"
+            required
+            v-model="goodData.description"
           >
         </div>
       </div>
@@ -145,17 +150,15 @@ export default {
     initKEditor(Editor, store, () => {
       console.log("page initKEditor at asyncData()");
     });
-
     let goodId = route.query.id || 0;
-
     if (goodId) {
       Request.post("/api/goods/getDetailById", { id: goodId }).then(ret => {
         console.log("request goods detail", ret);
-        store.state.goodData = ret.data;
+        store.state.goodData = ret.data.goodInfo;
 
         if (editor) {
           editor.sync();
-          editor.html(ret.data.content);
+          editor.html(ret.data.goodInfo.description);
         }
       });
     } else {

@@ -23,4 +23,4 @@ class MallStore {
   }
 }
 
-export default new MallStore
+export default new MallStore()
