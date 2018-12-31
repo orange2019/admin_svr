@@ -24,6 +24,10 @@ import InvestUpdate from './pages/invest/update.vue'
 import Manager from './pages/manager.vue'
 import OrderList from './pages/order/list.vue'
 import OrderUpdate from './pages/order/update.vue'
+import CategoryList from './pages/category/list.vue'
+import CategoryUpdate from './pages/category/update.vue'
+import CategoryAdd from './pages/category/add.vue'
+
 let routes = [{
     path: '/',
     component: Home
@@ -107,7 +111,19 @@ let routes = [{
   {
     path: '/order/update',
     component: OrderUpdate
-  }
+  },
+  {
+    path: '/category',
+    component: CategoryList
+  },
+  {
+    path: '/category/update',
+    component: CategoryUpdate
+  },
+  {
+    path: '/category/add',
+    component: CategoryAdd
+  },
 ]
 
 export function createRouter() {

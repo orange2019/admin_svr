@@ -2,10 +2,18 @@
   <div class="page-mall-list">
 
     <div class="page-mall-list-top row">
-      <div class="mall-action col-6 text-left">
+      <div class="mall-action col-1 text-left">
         <router-link to="order" class="btn btn-outline-primary pl-4 pr-4">订单管理</router-link>
       </div>
-      <div class="mall-action col-6 text-right">
+      <div class="mall-action col-1 text-left">
+        <router-link to="category" class="btn btn-outline-primary pl-4 pr-4">分类管理</router-link>
+      </div>
+      <div class="mall-action col-1 text-left">
+        <router-link to="mall/add" class="btn btn-outline-primary pl-4 pr-4">视频管理</router-link>
+      </div>
+      <div class="mall-action col-6">
+      </div>
+      <div class="mall-action col-3 text-right">
         <router-link to="mall/add" class="btn btn-outline-primary pl-4 pr-4">添加商品</router-link>
       </div>
       <div class="col-12">

@@ -113,9 +113,9 @@ export default{
       // postData.content = document.getElementById("news-content").value;
       // postData.cover = document.getElementById("news-cover-input").value;
 
-      console.log("orderUpdateSubmit().postData", orderData);
+      console.log("orderUpdateSubmit().orderData", orderData);
       let ret = await Request.post("/api/order/orderModify", orderData);
-      console.log("orderUpdateSubmit().postData ret", ret);
+      console.log("orderUpdateSubmit().orderData ret", ret);
       if (ret.code === 0) {
         // location.href = '/'
         alert("提交成功");
