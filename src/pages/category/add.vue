@@ -2,7 +2,7 @@
   <div class="page-category-update">
     <div class="row">
       <div class="col-6 text-left">
-        <h4>订单详情</h4>
+        <h4>新建分类</h4>
       </div>
       <div class="col-6 text-right">
         <a href="javascript:history.go(-1)" class="btn btn-outline-primary">返回</a>
