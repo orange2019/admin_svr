@@ -1,16 +1,16 @@
 <template>
-<div class="page-category-list">
-  <div class="page-mall-list-top row">
+  <div class="page-category-list">
+    <div class="page-mall-list-top row">
       <div class="mall-action col-1 text-left">
         <router-link to="video/add" class="btn btn-outline-primary pl-4 pr-4">新建视频</router-link>
       </div>
-      
+
       <div class="col-12">
         <hr>
       </div>
     </div>
-  <div class="table-responsive">
-      <table class="table table-hover ">
+    <div class="table-responsive">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>视频ID</th>
@@ -18,7 +18,7 @@
             <th>视频简介</th>
             <th>视频连接</th>
             <th>状态</th>
-            <th >操作</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -35,27 +35,45 @@
               <span v-if="item.status == 1" class="text-success">启用</span>
               <span v-if="item.status == 0" class="text-danger">未启用</span>
             </td>
-            <td >
-              <router-link :to="{ path : 'video/update' , query : {id : item.id }}" class="btn btn-outline-primary btn-sm">编辑</router-link>
-              <a v-if="item.status == 1" href="javascript:;" @click="videoDelete(item.id)" class="btn btn-outline-danger btn-sm">不启用</a>
-              <a v-if="item.status == 0" href="javascript:;" @click="videoUp(item.id)" class="btn btn-outline-success btn-sm">启用</a>
+            <td>
+              <router-link
+                :to="{ path : 'video/update' , query : {id : item.id }}"
+                class="btn btn-outline-primary btn-sm"
+              >编辑</router-link>
+              <a
+                v-if="item.status == 1"
+                href="javascript:;"
+                @click="videoDelete(item.id)"
+                class="btn btn-outline-danger btn-sm"
+              >不启用</a>
+              <a
+                v-if="item.status == 0"
+                href="javascript:;"
+                @click="videoUp(item.id)"
+                class="btn btn-outline-success btn-sm"
+              >启用</a>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  <div class="page-pagination">
+    <div class="page-pagination">
       <hr>
-      <my-pagination :total="count" :display="size" :currentPage="currentPage" @pageChange="pageChange"></my-pagination>
+      <my-pagination
+        :total="count"
+        :display="size"
+        :currentPage="currentPage"
+        @pageChange="pageChange"
+      ></my-pagination>
     </div>
-</div>
+  </div>
 </template>
 <script>
 import Request from "./../../api/common/request";
 
 export default {
-  asyncData({ store,route}){
-    store.dispatch('videoList',{route:route})
+  asyncData({ store, route }) {
+    store.dispatch("videoList", { route: route });
   },
   computed: {
     items() {
@@ -64,11 +82,11 @@ export default {
     count() {
       return this.$store.state.listCount;
     },
-    size(){
+    size() {
       return this.$store.state.listLimit;
     },
-    currentPage(){
-      return this.$store.state.listCurrentNum
+    currentPage() {
+      return this.$store.state.listCurrentNum;
     }
   },
   methods: {
@@ -85,7 +103,7 @@ export default {
         }
       }
     },
-     async videoUp(id) {
+    async videoUp(id) {
       // console.log(this.$route)
       // console.log(this.$router)
       if (confirm("确认启用?")) {
@@ -99,9 +117,8 @@ export default {
           alert("操作失败");
         }
       }
-    },
-
+    }
   }
-}
+};
 </script>
 
