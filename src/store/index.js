@@ -161,14 +161,20 @@ const store = new Vuex.Store({
     }, data) {
       return await InvestStore.getDetail(state, data.route)
     },
-    async orderList({ state }, data) {
-      return await OrderStore.orderList(state,data.route)
+    async orderList({
+      state
+    }, data) {
+      return await OrderStore.orderList(state, data.route)
     },
-    async categoryList({ state }, data) {
-      return await CategoryStore.categoryList(state,data.route)
+    async categoryList({
+      state
+    }, data) {
+      return await CategoryStore.categoryList(state, data.route)
     },
-    async videoList({ state }, data) {
-      return await VideoStore.videoList(state,data.route)
+    async videoList({
+      state
+    }, data) {
+      return await VideoStore.videoList(state, data.route)
     }
   }
 })
