@@ -26,7 +26,11 @@
             <td>{{item.id}}</td>
             <td>{{item.title}}</td>
             <td>{{item.description}}</td>
-            <td>{{item.url}}</td>
+            <td>
+              <p>{{item.url}}</p>
+              <!-- <video src="item.url" width="320" height="150" controls="controls"></video> -->
+              <video src="item.url" width="320" height="240" controls></video>
+            </td>
             <td>
               <span v-if="item.status == 1" class="text-success">启用</span>
               <span v-if="item.status == 0" class="text-danger">未启用</span>
