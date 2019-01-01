@@ -9,7 +9,7 @@
         <router-link to="category" class="btn btn-outline-primary pl-4 pr-4">分类管理</router-link>
       </div>
       <div class="mall-action col-1 text-left">
-        <router-link to="mall/add" class="btn btn-outline-primary pl-4 pr-4">视频管理</router-link>
+        <router-link to="video" class="btn btn-outline-primary pl-4 pr-4">视频管理</router-link>
       </div>
       <div class="mall-action col-6">
       </div>
@@ -44,7 +44,10 @@
             <td>{{item.info}}</td>
             <td>{{item.description}}</td>
             <td>{{item.price}}</td>
-            <td>{{item.stock}}</td>
+            <td>
+              <p v-if="item.stock == -1">无限库存</p>
+              <p v-else>{{item.stock}}</p>
+            </td>
             <td><img :src="item.cover" height="100"/></td>
             <td>{{formatTime(item.create_time)}}</td>
             <td>

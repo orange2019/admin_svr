@@ -10,6 +10,7 @@ import InvestStore from './invest/index'
 import MallStore from './mall/index'
 import OrderStore from './order/index'
 import CategoryStore from './category/index'
+import VideoStore from './video/index'
 
 Vue.use(Vuex)
 
@@ -44,6 +45,7 @@ const store = new Vuex.Store({
       },
       orderData: {},
       categoryData: {},
+      videoData: {},
       listItems: [],
       listCount: 0,
       listCurrentNum: 1,
@@ -164,6 +166,9 @@ const store = new Vuex.Store({
     },
     async categoryList({ state }, data) {
       return await CategoryStore.categoryList(state,data.route)
+    },
+    async videoList({ state }, data) {
+      return await VideoStore.videoList(state,data.route)
     }
   }
 })

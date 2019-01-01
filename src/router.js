@@ -27,6 +27,9 @@ import OrderUpdate from './pages/order/update.vue'
 import CategoryList from './pages/category/list.vue'
 import CategoryUpdate from './pages/category/update.vue'
 import CategoryAdd from './pages/category/add.vue'
+import VideoList from './pages/video/list.vue'
+import VideoUpdate from './pages/video/update.vue'
+import VideoAdd from './pages/video/add.vue'
 
 let routes = [{
     path: '/',
@@ -123,6 +126,18 @@ let routes = [{
   {
     path: '/category/add',
     component: CategoryAdd
+  },
+  {
+    path: '/video',
+    component: VideoList
+  },
+  {
+    path: '/video/update',
+    component: VideoUpdate
+  },
+  {
+    path: '/video/add',
+    component: VideoAdd
   },
 ]
 

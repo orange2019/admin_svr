@@ -50,23 +50,25 @@
     <div class="form-group row">
       <label for class="col-form-label col-2">物流公司</label>
       <div class="col-10">
-        <input
+        <input v-show="orderData.status!=3 && orderData.status!=-1"
           type="text"
           class="form-control"
           placeholder="请输入物流公司名称"
           v-model="orderData.logistics_company"
         >
+        <p v-show="orderData.status==3 || orderData.status==-1">{{orderData.logistics_company}}</p>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row" >
       <label for class="col-form-label col-2">物流单号</label>
       <div class="col-10">
-        <input
+        <input v-show="orderData.status!=3 && orderData.status!=-1"
           type="text"
           class="form-control"
           placeholder="请输入物流单号"
           v-model="orderData.logistics_no"
         >
+        <p v-show="orderData.status==3 || orderData.status==-1">{{orderData.logistics_no}}</p>
       </div>
     </div>
     <div class="form-group row">
