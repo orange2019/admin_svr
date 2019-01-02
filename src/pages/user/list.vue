@@ -91,6 +91,10 @@
                   @click="viewUserDetail(item)"
                 >查看详情</a>
               </span>
+
+              <span class="ml-1">
+                <router-link :to="{path:'/user/addresslist' , query: {'user_id' : item.id }}" class="btn btn-sm btn-outline-primary">用户地址</router-link>
+              </span>
             </td>
           </tr>
         </tbody>

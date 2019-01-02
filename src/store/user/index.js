@@ -63,6 +63,7 @@ class UserStore {
     // console.log("/api/news/list.query", query);
     query.page = parseInt(route.query.page) || 1
     query.limit = parseInt(route.query.limit) || state.listLimit || 10
+    query.type = route.query.type || 0
     state.listCurrentNum = query.page
     // let searchKeyword = query.keyword || ''
     // store.state.searchKeyword = searchKeyword
