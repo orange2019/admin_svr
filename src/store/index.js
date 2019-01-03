@@ -164,7 +164,7 @@ const store = new Vuex.Store({
     async orderList({
       state
     }, data) {
-      return await OrderStore.orderList(state, data.route)
+      return await OrderStore.orderList(state, data.route,data.body || {})
     },
     async categoryList({
       state
