@@ -152,7 +152,9 @@ let initKEditor = (Editor, store, cb) => {
     window.editor = Editor.createEditor("news-content");
   }
   if (document.getElementById("news-cover-btn")) {
-    window.imgBtn = Editor.createImgBtn("news-cover-btn", store);
+    window.imgBtn = Editor.createImgBtn("news-cover-btn", url => {
+      store.state.newsData.cover = data.url;
+    });
   }
 
   cb();

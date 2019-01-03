@@ -48,7 +48,7 @@
             v-model="goodData.description"
             placeholder="请输入商品描述"
             id="news-content"
-            v-html=goodData.description
+            v-html="goodData.description"
           ></textarea>
         </div>
       </div>
@@ -117,7 +117,7 @@
         </div>
       </div>
 
-       <div class="form-group row">
+      <div class="form-group row">
         <div class="col-12 text-right">
           <hr>
           <input type="hidden" v-model="goodData.id">
@@ -138,7 +138,9 @@ let initKEditor = (Editor, store, cb) => {
     window.editor = Editor.createEditor("news-content");
   }
   if (document.getElementById("news-cover-btn")) {
-    window.imgBtn = Editor.createImgBtn("news-cover-btn", store);
+    window.imgBtn = Editor.createImgBtn("news-cover-btn", url => {
+      store.state.goodData.cover = url;
+    });
   }
 
   cb();
@@ -162,7 +164,7 @@ export default {
         }
       });
     } else {
-      alert('商品不存在！')
+      alert("商品不存在！");
       this.$router.go(-1);
     }
   },
@@ -172,7 +174,7 @@ export default {
   computed: {
     goodData() {
       return this.$store.state.goodData;
-    },
+    }
   },
   methods: {
     async goodUpdateSubmit() {

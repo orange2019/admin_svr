@@ -19,8 +19,8 @@ class Editor {
 
   }
 
-  async createImgBtn(element, store) {
-    console.log('editoe.createImgBtn store', store.state)
+  async createImgBtn(element, cb) {
+    // console.log('editor.createImgBtn store', store.state)
     let uploadbutton = KindEditor.uploadbutton({
       // button: document.getElementById(element),
       button: KindEditor('#' + element)[0],
@@ -30,7 +30,8 @@ class Editor {
         // console.log('afterUpload,data' , data)
         if (data.error === 0) {
           // alert(data.url);
-          store.state.newsData.cover = data.url
+          cb(data.url)
+          // store.state.newsData.cover = data.url
 
         } else {
 
