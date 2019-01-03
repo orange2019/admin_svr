@@ -100,9 +100,10 @@ import Request from "./../../api/common/request";
 import Editor from "./../../utils/editor.js";
 let initKEditor = (Editor, store, cb) => {
   if (document.getElementById("video-cover-btn")) {
-    window.imgBtn = Editor.createImgBtn("video-cover-btn", store);
+    window.imgBtn = Editor.createImgBtn("video-cover-btn", url => {
+      store.state.videoData.cover = url;
+    });
   }
-
   cb();
 };
 export default {
