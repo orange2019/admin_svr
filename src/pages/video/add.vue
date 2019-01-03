@@ -35,7 +35,7 @@
       </div>
     </div>
 
-     <div class="form-group row">
+    <div class="form-group row">
       <label for class="col-form-label col-2">视频连接</label>
       <div class="col-10">
         <input
@@ -48,16 +48,32 @@
     </div>
 
     <div class="form-group row">
-      <label for class="col-form-label col-2">视频封面图</label>
-      <div class="col-10">
+      <label for class="col-form-label col-3">封面图
+        <br>
+        <span class="text-danger">（图片比例16：9）</span>
+      </label>
+      <div class="col-7">
         <input
           type="text"
+          v-model.lazy="videoData.cover"
+          required
           class="form-control"
-          placeholder="视频封面图"
-          v-model="videoData.cover"
+          id="video-cover-input"
+        >
+        <div>
+          <img :src="videoData.cover" alt id="video-cover-pre" height="100" class="mt-1">
+        </div>
+      </div>
+      <div class="col-2">
+        <input
+          type="button"
+          value="上传图片"
+          id="video-cover-btn"
+          class="btn btn-primary btn-block btn-sm"
         >
       </div>
     </div>
+
     <div class="form-group row">
       <label for class="col-form-label col-2">分类排序</label>
       <div class="col-10">
@@ -81,8 +97,21 @@
 </template>
 <script>
 import Request from "./../../api/common/request";
+import Editor from "./../../utils/editor.js";
+let initKEditor = (Editor, store, cb) => {
+  if (document.getElementById("video-cover-btn")) {
+    window.imgBtn = Editor.createImgBtn("video-cover-btn", url => {
+      store.state.videoData.cover = url;
+    });
+  }
+  cb();
+};
 export default {
   asyncData({ store, route }) {
+    initKEditor(Editor, store, () => {
+      console.log("page initKEditor at asyncData()");
+    });
+
     store.state.videoData = {
       id: "",
       title: "",
@@ -101,8 +130,9 @@ export default {
   methods: {
       async videoCreateSubmit(){
         let videoData = this.videoData;
+        editor.sync();
         console.log("videoCreateSubmit().videoData", videoData);
-         
+        videoData.cover = document.getElementById("video-cover-input").value;
         let ret = await Request.post("/api/video/add", videoData);
         console.log("videoCreateSubmit().videoData ret", ret);
         if (ret.code === 0) {
@@ -115,6 +145,15 @@ export default {
       },
 
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      console.log("beforeRouteEnter store", vm.$store.state);
+      initKEditor(Editor, vm.$store, () => {
+        console.log("page initKEditor at beforeRouteEnter()");
+      });
+    });
+  },
+  inject: ["reload"]
 
 }
 </script>

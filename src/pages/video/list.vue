@@ -16,7 +16,7 @@
             <th>视频ID</th>
             <th>视频名称</th>
             <th>视频简介</th>
-            <th>视频连接</th>
+            <th>视频封面图</th>
             <th>状态</th>
             <th>操作</th>
           </tr>
@@ -25,12 +25,7 @@
           <tr v-for="item in items">
             <td>{{item.id}}</td>
             <td>{{item.title}}</td>
-            <td>{{item.description}}</td>
-            <td>
-              <p>{{item.url}}</p>
-              <!-- <video src="item.url" width="320" height="150" controls="controls"></video> -->
-              <video src="item.url" width="320" height="240" controls></video>
-            </td>
+            <td><img :src="item.cover" height="150" weight="250"/></td>
             <td>
               <span v-if="item.status == 1" class="text-success">启用</span>
               <span v-if="item.status == 0" class="text-danger">未启用</span>
@@ -102,6 +97,24 @@ export default {
           alert("操作失败");
         }
       }
+    },
+    pageChange(num) {
+      // this.$store.state.listCurrentNum = num
+      let query = this.$route.query;
+      let pushQuery = {};
+      Object.keys(query).forEach(key => {
+        if (key != "page") {
+          pushQuery[key] = query[key];
+        }
+      });
+      pushQuery.page = num;
+      // console.log('pageChange.query' , query)
+      this.$router.push({ path: "/video", query: pushQuery });
+      this.$store.dispatch("videoList", { route: this.$route });
+      // setTimeout(() => {
+      //   this.$router.go(0)
+      // }, 0);
+      //
     },
     async videoUp(id) {
       // console.log(this.$route)

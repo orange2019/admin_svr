@@ -5,6 +5,7 @@
         <thead>
           <tr>
             <th>姓名</th>
+            <th>手机号</th>
             <th>提交时间</th>
             <th>数量</th>
             <th>状态</th>
@@ -14,6 +15,7 @@
         <tbody>
           <tr v-for="item in items">
             <td>{{ item.user_info ? item.user_info.realname : '' }}</td>
+            <td>{{ item.mobile ? item.mobile : '' }}</td>
             <td>{{ formatTime(item.create_time) }}</td>
             <td>{{ item.num }}</td>
             <td>

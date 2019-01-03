@@ -15,6 +15,7 @@ import UserRelation from './pages/user/relation.vue'
 import UserInvest from './pages/user/invest.vue'
 import UserTransaction from './pages/user/transaction.vue'
 import UserAssets from './pages/user/assets.vue'
+import UserAddressList from './pages/user/addressList.vue'
 import AssetsOut from './pages/assets/out.vue'
 import UserInvite from './pages/user/invite.vue'
 import Config from './pages/config/index.vue'
@@ -139,6 +140,10 @@ let routes = [{
     path: '/video/add',
     component: VideoAdd
   },
+  {
+    path: '/user/addressList',
+    component:UserAddressList
+  }
 ]
 
 export function createRouter() {

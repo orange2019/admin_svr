@@ -121,11 +121,13 @@ import Request from "./../../api/common/request";
 import Editor from "./../../utils/editor.js";
 
 let initKEditor = (Editor, store, cb) => {
-  if (document.getElementById("goods-content")) {
-    window.editor = Editor.createEditor("goods-content");
+  if (document.getElementById("news-content")) {
+    window.editor = Editor.createEditor("news-content");
   }
   if (document.getElementById("news-cover-btn")) {
-    window.imgBtn = Editor.createImgBtn("news-cover-btn", store);
+    window.imgBtn = Editor.createImgBtn("news-cover-btn", url => {
+      store.state.goodData.cover = url;
+    });
   }
 
   cb();

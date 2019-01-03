@@ -46,7 +46,11 @@
               <span>{{ item.num }}</span>
             </td>
             <td>{{ item.gas_used }}</td>
-            <td></td>
+            <td>
+              <div v-if="item.type == 3">
+                转账账户手机号码:{{ item.to_user.mobile || '无' }}|姓名:{{ item.to_user.realname || '未设置' }}
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>

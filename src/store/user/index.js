@@ -1,6 +1,6 @@
 import Request from './../../api/common/request'
 
-class NewsStore {
+class UserStore {
 
   async getList(state, route, body = {}) {
     let query = route.query;
@@ -63,6 +63,7 @@ class NewsStore {
     // console.log("/api/news/list.query", query);
     query.page = parseInt(route.query.page) || 1
     query.limit = parseInt(route.query.limit) || state.listLimit || 10
+    query.type = route.query.type || 0
     state.listCurrentNum = query.page
     // let searchKeyword = query.keyword || ''
     // store.state.searchKeyword = searchKeyword
@@ -90,6 +91,18 @@ class NewsStore {
     return ret
   }
 
+  async addressList(state, route){
+    let query = route.query;
+    query.page = parseInt(route.query.page) || 1
+    query.limit = parseInt(route.query.limit) || state.listLimit || 10
+    state.listCurrentNum = query.page
+    let ret = await Request.post("/api/user/addressList", query)
+    console.log("request good list ret", ret);
+    state.listItems = ret.data.list;
+    state.listCount = ret.data.count;
+    return ret
+  }
+
 }
 
-export default new NewsStore
+export default new UserStore

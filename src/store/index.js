@@ -175,6 +175,11 @@ const store = new Vuex.Store({
       state
     }, data) {
       return await VideoStore.videoList(state, data.route)
+    },
+    async addressList({
+      state
+    }, data) {
+      return await UserStore.addressList(state, data.route)
     }
   }
 })

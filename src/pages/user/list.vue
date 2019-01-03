@@ -4,10 +4,13 @@
       <div class="col-3">
         <input type="text" v-model="searchKey" class="form-control" placeholder="输入手机号码">
       </div>
-      <div class="col-1">
+      <div class="col-3">
         <a href="javascript:" class="btn btn-sm" @click="searchUser">搜索</a>
       </div>
-      <div class="col-8 text-right">
+      <div class="col-3 text-right">
+        <router-link to="/user/addresslist" class="btn btn-outline-primary">用户地址列表</router-link>
+      </div>
+      <div class="col-3 text-right">
         <router-link to="/user/relation" class="btn btn-outline-primary">用户关系列表</router-link>
       </div>
       <div class="col-12">
@@ -87,6 +90,10 @@
                   href="javascript:;"
                   @click="viewUserDetail(item)"
                 >查看详情</a>
+              </span>
+
+              <span class="ml-1">
+                <router-link :to="{path:'/user/addresslist' , query: {'user_id' : item.id }}" class="btn btn-sm btn-outline-primary">用户地址</router-link>
               </span>
             </td>
           </tr>

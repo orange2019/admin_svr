@@ -12,15 +12,15 @@
             <th>产品名称</th>
             <th>开始时间</th>
             <th>结束时间</th>
-            <th>数量</th>
             <th>收益率</th>
+            <th>数量</th>
             <th>天数</th>
           </tr>
           <tr v-for="item in userInvestList">
             <td>{{ item.invest.name }}</td>
             <td>{{ formatTime(item.start_time) }}</td>
             <td>{{ formatTime(item.end_time) }}</td>
-            <td>{{ item.rate }}</td>
+            <td>{{ item.rate }} %</td>
             <td>{{ item.num }}</td>
             <td>{{ item.days }}</td>
           </tr>
