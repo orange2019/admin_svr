@@ -103,7 +103,7 @@ export default {
       });
       pushQuery.page = num;
       // console.log('pageChange.query' , query)
-      this.$router.push({ path: "/", query: pushQuery });
+      this.$router.push({ path: "/user/relation", query: pushQuery });
 
       this.$store.state.loadingText =
         '<span class="text-muted">数据加载中，请耐心等候...</span>';
