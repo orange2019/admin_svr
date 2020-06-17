@@ -12,8 +12,8 @@ class AliOssUtils {
         //配置信息
         this.config = {
             region: 'oss-cn-shenzhen',
-            accessKeyId: 'LTAIuZAB2acD7SpJ',
-            accessKeySecret: 'FMpk7JlIIGbhSCS5q0A5VZOSk5uthV',
+            accessKeyId: '',
+            accessKeySecret: '',
             bucket: 'kxm-img',
             allowedExtname: ['jpg', 'jpeg', 'gif', 'bmp']
         }
